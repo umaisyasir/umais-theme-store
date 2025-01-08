@@ -3619,6 +3619,10 @@ h2.rich-text__heading.rte.inline-richtext.h1.scroll-trigger.animate--slide-in:be
   }
 }
 
+small.copyright__content a {
+    color: #c0ce6e !important;
+}
+
 header.header.header--middle-left.header--mobile-left.page-width.header--has-menu.header--has-account {
     display: flex;
     justify-content: space-between;
