@@ -2,6 +2,10 @@
   margin: 0;
 }
 
+.multicolumn-card__info .link:hover {
+    background: #62664b;
+}
+
 .multicolumn.no-heading .title {
   display: none;
 }
