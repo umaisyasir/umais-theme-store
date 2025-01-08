@@ -161,6 +161,59 @@
       "settings": {
         "video_id": "https://www.youtube.com/embed/eSMXQz72nSQ?si=eb8DjmP7k-VGExCT"
       }
+    },
+    "multicolumn_QJ39VX": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_zn7GhJ": {
+          "type": "column",
+          "settings": {
+            "title": "Column",
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_yenVyg": {
+          "type": "column",
+          "settings": {
+            "title": "Column",
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_QFENwK": {
+          "type": "column",
+          "settings": {
+            "title": "Column",
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_zn7GhJ",
+        "column_yenVyg",
+        "column_QFENwK"
+      ],
+      "settings": {
+        "title": "Multicolumn",
+        "heading_size": "h1",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "columns_desktop": 3,
+        "column_alignment": "left",
+        "background_style": "primary",
+        "button_label": "",
+        "button_link": "",
+        "color_scheme": "",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
@@ -168,6 +221,7 @@
     "rich_text_W9iFT3",
     "vb_custom_contact_PgBqr3",
     "featured_collection_jC8rKB",
-    "vb_custom_video_AQ9e6n"
+    "vb_custom_video_AQ9e6n",
+    "multicolumn_QJ39VX"
   ]
 }
