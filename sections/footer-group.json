@@ -34,12 +34,24 @@
             "heading": "",
             "menu": "main-menu"
           }
+        },
+        "contact_QeyqTq": {
+          "type": "contact",
+          "settings": {
+            "facebook_url": "#",
+            "pinterest_url": "#",
+            "houzz_url": "#",
+            "yelp_url": "#",
+            "diy_phone": "(936) 553-4243",
+            "wholesale_phone": "(281) 798-6772"
+          }
         }
       },
       "block_order": [
         "link_list_UdDF8B",
         "link_list_PgtzDY",
-        "link_list_Yxcf9d"
+        "link_list_Yxcf9d",
+        "contact_QeyqTq"
       ],
       "settings": {
         "color_scheme": "scheme-1",
