@@ -156,9 +156,7 @@
                 {%- endcase -%}
               </div>
             {%- endfor -%}
-          </div>
-        {%- endif -%}
-        <div class="custom-footer-container">
+            <div class="custom-footer-container">
     <div class="custom-social-links">
         {% if settings.facebook_url %}
             <a href="{{ settings.facebook_url }}" class="custom-social-icon custom-facebook" aria-label="Facebook"></a>
@@ -190,6 +188,8 @@
         </div>
     </div>
 </div>
+          </div>
+        {%- endif -%}
 
         <div
           class="footer-block--newsletter{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
