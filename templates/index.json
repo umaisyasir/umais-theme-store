@@ -201,6 +201,10 @@
         "column_yenVyg",
         "column_QFENwK"
       ],
+      "custom_css": [
+        ".multicolumn .title-wrapper-with-link {justify-content: center;}",
+        ".multicolumn .title-wrapper-with-link h2.title.inline-richtext.h1 {font-size: 31px;}"
+      ],
       "settings": {
         "title": "PROJECTS",
         "heading_size": "h1",
