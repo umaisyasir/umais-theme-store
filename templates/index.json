@@ -12,9 +12,10 @@
     "vb_custom_banner_PzHecA": {
       "type": "vb-custom-banner",
       "blocks": {
-        "banner_slide_h8ywh6": {
+        "banner_slide_JmMQaP": {
           "type": "banner_slide",
           "settings": {
+            "image": "shopify://shop_images/28EF50BE-1EBD-4DFB-8700-F44573EA7F55.webp",
             "heading": "",
             "subheading": "",
             "heading_size": 48,
@@ -28,9 +29,10 @@
             "bg_position": "center"
           }
         },
-        "banner_slide_JmMQaP": {
+        "banner_slide_h8ywh6": {
           "type": "banner_slide",
           "settings": {
+            "image": "shopify://shop_images/IMG_1589.jpg",
             "heading": "",
             "subheading": "",
             "heading_size": 48,
@@ -46,8 +48,8 @@
         }
       },
       "block_order": [
-        "banner_slide_h8ywh6",
-        "banner_slide_JmMQaP"
+        "banner_slide_JmMQaP",
+        "banner_slide_h8ywh6"
       ],
       "settings": {
         "autoplay_delay": 5000,
