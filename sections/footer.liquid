@@ -156,7 +156,6 @@
                 {%- endcase -%}
               </div>
             {%- endfor -%}
-              {%- if forloop.index == 1 -%}
                   <div class="custom-footer-container footer-block grid__item {% if block.type == 'contact' %}footer-block-contact{% endif %} {{ forloop.index }}">
                       <div class="custom-social-links">
                           {% if block.settings.facebook_url %}
@@ -189,7 +188,6 @@
                           </div>
                       </div>
                   </div>
-              {%- endif -%}
           </div>
         {%- endif -%}
 
