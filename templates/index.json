@@ -169,8 +169,8 @@
           "type": "column",
           "settings": {
             "image": "shopify://shop_images/Driveway2_360x_34ed42d2-79c3-4817-b172-e687602e4a4f.jpg",
-            "title": "Column",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "title": "Driveway",
+            "text": "<p>Driveways require 5\" of aggregate on a compact surface.  We recommend #54 stone (not sold online yet)  or similar product with 4\" base.  Add 1\" of our pea gravel/aggregate and pour Klingstone Path Material evenly at 1 gallon per 10 square feet.  Use stones, pavers, wood or metal as permanent edging or use our HP Non Stick Form.</p>",
             "link_label": "",
             "link": ""
           }
@@ -179,8 +179,8 @@
           "type": "column",
           "settings": {
             "image": "shopify://shop_images/cta-2_360x_83d0c051-4e5a-4615-b2f5-7793938e5352.jpg",
-            "title": "Column",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "title": "Path",
+            "text": "<p>Paths require 3\" of aggregate on a compact surface to get a durable and beautiful surface.  Use a roller, tamp or 2 x 6\" to level and make your surface smooth.  Pour Klingstone Path Material evenly at a rate of 1 gallon per 12 square feet.  Use stones, pavers, wood or metal as permanent edging or use our HP Non Stick Form.</p>",
             "link_label": "",
             "link": ""
           }
@@ -189,8 +189,8 @@
           "type": "column",
           "settings": {
             "image": "shopify://shop_images/cta-3_360x_ad76dd79-a294-47b2-9364-10733b1f9e78.jpg",
-            "title": "Column",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "title": "Patio",
+            "text": "<p>Install a patio the same as a path.  Change your wet, unsightly area into a usuable area for your BBQ, firepit or  seating area to relax with your friends and family. Wet and unusable areas can be converted into a space that you can enjoy.  Add your grill, smoker or table and you and your friends will find joy in this beautiful space.</p>",
             "link_label": "",
             "link": ""
           }
