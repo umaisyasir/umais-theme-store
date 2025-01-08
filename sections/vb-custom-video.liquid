@@ -58,9 +58,6 @@
             frameborder="0" 
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
             allowfullscreen></iframe>
-    <div class="overlay">
-      <p class="overlay-text">{{ settings.overlay_text }}</p>
-    </div>
   </div>
 </div>
 
@@ -86,27 +83,6 @@ document.addEventListener('DOMContentLoaded', function () {
       "id": "video_id",
       "default": "YOUR_VIDEO_ID",
       "info": "Enter the YouTube video ID"
-    },
-    {
-      "type": "text",
-      "label": "Overlay Text",
-      "id": "overlay_text",
-      "default": "Perfect for large scale and at-home projects",
-      "info": "Text to display over the video"
-    },
-    {
-      "type": "color",
-      "label": "Overlay Background Color",
-      "id": "overlay_background_color",
-      "default": "#000000",
-      "info": "Background color of the overlay"
-    },
-    {
-      "type": "color",
-      "label": "Overlay Text Color",
-      "id": "overlay_text_color",
-      "default": "#FFFFFF",
-      "info": "Text color of the overlay"
     }
   ],
   "presets": [
