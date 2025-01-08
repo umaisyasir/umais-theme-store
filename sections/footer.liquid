@@ -156,6 +156,7 @@
                 {%- endcase -%}
               </div>
             {%- endfor -%}
+            {%- for block in section.blocks -%}
             <div class="custom-footer-container footer-block grid__item">
                 <div class="custom-social-links">
                     {% if block.settings.facebook_url %}
@@ -188,6 +189,7 @@
                     </div>
                 </div>
             </div>
+            {% endfor %}
           </div>
         {%- endif -%}
 
