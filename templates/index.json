@@ -31,21 +31,11 @@
             "button_link": "#",
             "button_text": "Shop Now"
           }
-        },
-        "banner_slide_Vpmtja": {
-          "type": "banner_slide",
-          "settings": {
-            "heading": "",
-            "subheading": "",
-            "button_link": "",
-            "button_text": ""
-          }
         }
       },
       "block_order": [
         "banner_slide_GQ7qfK",
-        "banner_slide_wcwbFe",
-        "banner_slide_Vpmtja"
+        "banner_slide_wcwbFe"
       ],
       "settings": {}
     },
