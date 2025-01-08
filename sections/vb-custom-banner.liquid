@@ -162,20 +162,14 @@
       loop: true,
       autoplay: {
         delay: autoplayDelay, // Delay value should be passed here
-        disableOnInteraction: disableOnInteraction === 'true', // Convert string 'false'/'true' to boolean
+        disableOnInteraction: disableOnInteraction === 'true' ? true : false, // Convert string 'false'/'true' to boolean
       },
       pagination: {
         el: '.swiper-pagination',
-        clickable: true, // Make pagination dots clickable
+        clickable: true, // Make the dots clickable
       },
       fadeEffect: {
         crossFade: true,
-      },
-      on: {
-        slideChange: function () {
-          // You can perform actions here on each slide change, like logging
-          console.log('Slide changed to index: ' + swiper.realIndex);
-        }
       },
     });
 
@@ -183,7 +177,6 @@
     console.log('Swiper initialized');
   });
 </script>
-
 
 
 {% schema %}
