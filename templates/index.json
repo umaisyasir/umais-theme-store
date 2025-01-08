@@ -90,10 +90,59 @@
         "padding_top": 40,
         "padding_bottom": 52
       }
+    },
+    "vb_custom_contact_PgBqr3": {
+      "type": "vb_custom-contact",
+      "blocks": {
+        "contact_box_b6g9r7": {
+          "type": "contact_box",
+          "settings": {
+            "title": "DIY Orders",
+            "subtitle": "Se Habla Español",
+            "phone": "9365534243",
+            "box_background_color": "#2e4149",
+            "button_color": "#899d87",
+            "button_hover_color": "#6f836c"
+          }
+        },
+        "contact_box_Ta8gPz": {
+          "type": "contact_box",
+          "settings": {
+            "title": "DIY Orders",
+            "subtitle": "Se Habla Español",
+            "phone": "9365534243",
+            "box_background_color": "#2e4149",
+            "button_color": "#899d87",
+            "button_hover_color": "#6f836c"
+          }
+        },
+        "contact_box_bVAKaM": {
+          "type": "contact_box",
+          "settings": {
+            "title": "DIY Orders",
+            "subtitle": "Se Habla Español",
+            "phone": "9365534243",
+            "box_background_color": "#2e4149",
+            "button_color": "#899d87",
+            "button_hover_color": "#6f836c"
+          }
+        }
+      },
+      "block_order": [
+        "contact_box_b6g9r7",
+        "contact_box_Ta8gPz",
+        "contact_box_bVAKaM"
+      ],
+      "settings": {
+        "heading": "Contact Our Customer Service",
+        "background_color": "#1c2c33",
+        "text_color": "#ffffff"
+      }
     }
   },
   "order": [
     "vb_custom_banner_AaqREW",
-    "rich_text_W9iFT3"
+    "rich_text_W9iFT3",
+    "vb_custom_contact_PgBqr3"
   ]
 }
