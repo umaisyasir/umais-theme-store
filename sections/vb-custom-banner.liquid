@@ -144,20 +144,22 @@
 </div>
 
 <script>
-  var swiper = new Swiper('.swiper-container', {
-    effect: 'fade',
-    loop: true,
-    autoplay: {
-      delay: {{ section.settings.autoplay_delay }},
-      disableOnInteraction: false,
-    },
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true, // Make dots clickable
-    },
-    fadeEffect: {
-      crossFade: true,
-    },
+  document.addEventListener('DOMContentLoaded', function() {
+    var swiper = new Swiper('.swiper-container', {
+      effect: 'fade',
+      loop: true,
+      autoplay: {
+        delay: {{ section.settings.autoplay_delay | default: 5000 }}, // Fallback value
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true, // Make dots clickable
+      },
+      fadeEffect: {
+        crossFade: true,
+      },
+    });
   });
 </script>
 
