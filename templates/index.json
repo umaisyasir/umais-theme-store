@@ -159,7 +159,7 @@
     "vb_custom_video_AQ9e6n": {
       "type": "vb-custom-video",
       "settings": {
-        "video_id": "eSMXQz72nSQ?rel=0&showinfo=0&vq=720",
+        "video_id": "https://www.youtube.com/embed/eSMXQz72nSQ?rel=0&showinfo=0&vq=720",
         "overlay_text": "",
         "overlay_background_color": "#ffffff",
         "overlay_text_color": "#ffffff"
