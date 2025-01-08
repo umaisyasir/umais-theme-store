@@ -3607,3 +3607,8 @@ h2.rich-text__heading.rte.inline-richtext.h1.scroll-trigger.animate--slide-in:be
   background-color: #ffffff;
   margin: 0 auto 10px auto;
 }
+@media screen and (max-width: 768px) {
+  .header__icon span {
+    width: 75px;
+  }
+}
