@@ -205,7 +205,7 @@
         ".multicolumn .title-wrapper-with-link {justify-content: center;}",
         ".multicolumn .title-wrapper-with-link h2.title.inline-richtext.h1 {font-size: 31px;}",
         ".multicolumn-card.content-container {background: white !important;}",
-        ".multicolumn-card.content-container .rte {letter-spacing: 0; font-size: 15px;}",
+        ".multicolumn-card.content-container .rte {letter-spacing: 0; font-size: 13px;}",
         ".multicolumn-card__info .link span.svg-wrapper {display: none;}",
         ".multicolumn-card__info .link {font-size: 15px; padding: 10px 15px; background: #27383e; color: white; border-radius: 20px; transition: 0.3s;}"
       ],
