@@ -318,7 +318,96 @@
       </div>
     </div>
   </div>
+  <div class="custom-footer-container">
+    <div class="custom-social-links">
+        {% if settings.facebook_url %}
+            <a href="{{ settings.facebook_url }}" class="custom-social-icon custom-facebook" aria-label="Facebook"></a>
+        {% endif %}
+        {% if settings.pinterest_url %}
+            <a href="{{ settings.pinterest_url }}" class="custom-social-icon custom-pinterest" aria-label="Pinterest"></a>
+        {% endif %}
+        {% if settings.houzz_url %}
+            <a href="{{ settings.houzz_url }}" class="custom-social-icon custom-houzz" aria-label="Houzz"></a>
+        {% endif %}
+        {% if settings.yelp_url %}
+            <a href="{{ settings.yelp_url }}" class="custom-social-icon custom-yelp" aria-label="Yelp"></a>
+        {% endif %}
+    </div>
+
+    <div class="custom-contact-info">
+        <div class="custom-contact-block">
+            <h3>DIY Orders</h3>
+            <p>Se Habla Español</p>
+            <p><a href="tel:+{{ settings.diy_phone }}" class="custom-phone-link">{{ settings.diy_phone }}</a></p>
+        </div>
+        <hr class="custom-divider">
+        <div class="custom-contact-block">
+            <h3>Contractors, Bulk and Wholesale Orders</h3>
+            <p>7am-6pm CST</p>
+            <h3>Klingstone Paths Inquiries</h3>
+            <p>8am-4pm CST</p>
+            <p><a href="tel:+{{ settings.wholesale_phone }}" class="custom-phone-link">{{ settings.wholesale_phone }}</a></p>
+        </div>
+    </div>
+</div>
 </footer>
+<style>
+.custom-footer-container {
+    background-color: #2e3b3a; /* Dark background color */
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    color: white;
+}
+
+.custom-social-links {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.custom-social-links a {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    margin: 0 10px;
+    background-color: #6b7b63; /* Greenish color */
+    border-radius: 50%;
+    text-align: center;
+    line-height: 40px;
+    font-size: 18px;
+    color: white;
+    text-decoration: none;
+}
+
+.custom-contact-info {
+    text-align: center;
+}
+
+.custom-contact-block {
+    margin-bottom: 20px;
+}
+
+.custom-contact-block h3 {
+    margin: 5px 0;
+}
+
+.custom-contact-block p {
+    margin: 5px 0;
+}
+
+.custom-divider {
+    border: 1px solid #6b7b63;
+    margin: 20px 0;
+}
+
+.custom-phone-link {
+    color: white;
+    text-decoration: none;
+}
+
+.custom-phone-link:hover {
+    text-decoration: underline;
+}
+</style>
 
 {% schema %}
 {
@@ -346,6 +435,44 @@
         }
       ]
     },
+    {
+      "type": "contact",
+    "name": "Social Media Links",
+    "settings": [
+      {
+        "type": "url",
+        "id": "facebook_url",
+        "label": "Facebook URL"
+      },
+      {
+        "type": "url",
+        "id": "pinterest_url",
+        "label": "Pinterest URL"
+      },
+      {
+        "type": "url",
+        "id": "houzz_url",
+        "label": "Houzz URL"
+      },
+      {
+        "type": "url",
+        "id": "yelp_url",
+        "label": "Yelp URL"
+      },
+      {
+        "type": "text",
+        "id": "diy_phone",
+        "label": "DIY Orders Phone Number",
+        "default": "(936) 553-4243"
+      },
+      {
+        "type": "text",
+        "id": "wholesale_phone",
+        "label": "Wholesale Orders Phone Number",
+        "default": "(281) 798-6772"
+      }
+    ]
+  },
     {
       "type": "brand_information",
       "name": "t:sections.footer.blocks.brand_information.name",
