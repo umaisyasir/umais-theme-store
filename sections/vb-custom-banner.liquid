@@ -166,17 +166,15 @@
       },
       pagination: {
         el: '.swiper-pagination',
-        clickable: true, // Ensure the dots are clickable
+        clickable: true, // Make pagination dots clickable
       },
       fadeEffect: {
         crossFade: true,
       },
       on: {
         slideChange: function () {
-          // Custom action on slide change
-          console.log('Slide changed to index: ' + swiper.realIndex);  // Log the new slide index
-          
-          // Add any custom code you want to run on each slide change
+          // You can perform actions here on each slide change, like logging
+          console.log('Slide changed to index: ' + swiper.realIndex);
         }
       },
     });
