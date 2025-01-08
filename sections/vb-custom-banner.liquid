@@ -150,7 +150,7 @@
       loop: true,
       autoplay: {
         delay: {{ section.settings.autoplay_delay | default: 5000 }}, // Fallback value
-        disableOnInteraction: false,
+        disableOnInteraction: {{ section.settings.disable_on_interaction | default: true }}, // Disables autoplay when interacting
       },
       pagination: {
         el: '.swiper-pagination',
@@ -159,6 +159,11 @@
       fadeEffect: {
         crossFade: true,
       },
+      on: {
+        slideChange: function () {
+          swiper.pagination.update(); // Ensure pagination updates when sliding manually
+        }
+      }
     });
   });
 </script>
