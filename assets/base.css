@@ -3599,3 +3599,11 @@ header.header.header--middle-left.header--mobile-center.page-width.header--has-m
   display: flex;
   justify-content: space-between;
 }
+h2.rich-text__heading.rte.inline-richtext.h1.scroll-trigger.animate--slide-in:before {
+  content: "";
+  display: block;
+  width: 125px;
+  height: 2px;
+  background-color: #ffffff;
+  margin: 0 auto 10px auto;
+}
