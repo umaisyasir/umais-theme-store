@@ -158,17 +158,25 @@
             {%- endfor -%}
                   <div class="custom-footer-container footer-block grid__item">
                       <div class="custom-social-links">
-                          {% if settings.facebook_url %}
-                              <a href="{{ settings.facebook_url }}" class="custom-social-icon custom-facebook" aria-label="Facebook"></a>
+                          {% if section.settings.facebook_url %}
+                              <a href="{{ section.settings.facebook_url }}" class="custom-social-icon custom-facebook" aria-label="Facebook">
+                                  <i class="fab fa-facebook-f"></i>
+                              </a>
                           {% endif %}
-                          {% if settings.pinterest_url %}
-                              <a href="{{ settings.pinterest_url }}" class="custom-social-icon custom-pinterest" aria-label="Pinterest"></a>
+                          {% if section.settings.pinterest_url %}
+                              <a href="{{ section.settings.pinterest_url }}" class="custom-social-icon custom-pinterest" aria-label="Pinterest">
+                                  <i class="fab fa-pinterest-p"></i>
+                              </a>
                           {% endif %}
-                          {% if settings.houzz_url %}
-                              <a href="{{ settings.houzz_url }}" class="custom-social-icon custom-houzz" aria-label="Houzz"></a>
+                          {% if section.settings.houzz_url %}
+                              <a href="{{ section.settings.houzz_url }}" class="custom-social-icon custom-houzz" aria-label="Houzz">
+                                  <i class="fab fa-houzz"></i>
+                              </a>
                           {% endif %}
-                          {% if settings.yelp_url %}
-                              <a href="{{ settings.yelp_url }}" class="custom-social-icon custom-yelp" aria-label="Yelp"></a>
+                          {% if section.settings.yelp_url %}
+                              <a href="{{ section.settings.yelp_url }}" class="custom-social-icon custom-yelp" aria-label="Yelp">
+                                  <i class="fab fa-yelp"></i>
+                              </a>
                           {% endif %}
                       </div>
                   
@@ -176,7 +184,7 @@
                           <div class="custom-contact-block">
                               <h3>DIY Orders</h3>
                               <p>Se Habla Español</p>
-                              <p><a href="tel:+{{ settings.diy_phone }}" class="custom-phone-link">{{ settings.diy_phone }}</a></p>
+                              <p><a href="tel:+{{ section.settings.diy_phone }}" class="custom-phone-link">{{ section.settings.diy_phone }}</a></p>
                           </div>
                           <hr class="custom-divider">
                           <div class="custom-contact-block">
@@ -184,7 +192,7 @@
                               <p>7am-6pm CST</p>
                               <h3>Klingstone Paths Inquiries</h3>
                               <p>8am-4pm CST</p>
-                              <p><a href="tel:+{{ settings.wholesale_phone }}" class="custom-phone-link">{{ settings.wholesale_phone }}</a></p>
+                              <p><a href="tel:+{{ section.settings.wholesale_phone }}" class="custom-phone-link">{{ section.settings.wholesale_phone }}</a></p>
                           </div>
                       </div>
                   </div>
