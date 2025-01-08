@@ -3612,3 +3612,8 @@ h2.rich-text__heading.rte.inline-richtext.h1.scroll-trigger.animate--slide-in:be
     width: 75px;
   }
 }
+
+header.header.header--middle-left.header--mobile-left.page-width.header--has-menu.header--has-account {
+    display: flex;
+    justify-content: space-between;
+}
