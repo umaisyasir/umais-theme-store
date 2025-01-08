@@ -3595,10 +3595,6 @@ details-disclosure > details {
     transform: translateX(100%) scaleX(0);
   }
 }
-header.header.header--middle-left.header--mobile-center.page-width.header--has-menu.header--has-account {
-  display: flex;
-  justify-content: space-between;
-}
 h2.rich-text__heading.rte.inline-richtext.h1.scroll-trigger.animate--slide-in:before {
   content: "";
   display: block;
