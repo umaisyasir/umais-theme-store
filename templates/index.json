@@ -159,10 +159,10 @@
     "vb_custom_video_AQ9e6n": {
       "type": "vb-custom-video",
       "settings": {
-        "video_title": "",
         "video_id": "k85UB5b6pJU?si=e91gejMdWDpQ1V-A",
+        "overlay_text": "",
         "overlay_background_color": "#ffffff",
-        "overlay_text_color": "#FFFFFF"
+        "overlay_text_color": "#ffffff"
       }
     }
   },
