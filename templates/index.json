@@ -69,6 +69,11 @@
         "heading_a4KHLD",
         "text_xnrGxp"
       ],
+      "custom_css": [
+        ".rich-text__text.rte.scroll-trigger.animate--slide-in {text-align: left; color: white;}",
+        ".rich-text.content-container {background: #62664b;}",
+        "h2.rich-text__heading.rte.inline-richtext.h1.scroll-trigger.animate--slide-in {color: white;}"
+      ],
       "settings": {
         "desktop_content_position": "center",
         "content_alignment": "center",
