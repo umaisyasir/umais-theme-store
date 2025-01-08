@@ -16,20 +16,40 @@
           "type": "banner_slide",
           "settings": {
             "image": "shopify://shop_images/28EF50BE-1EBD-4DFB-8700-F44573EA7F55.webp",
+            "bg_opacity": 1,
+            "overlay_opacity": 0,
             "heading": "Howell Pathways",
+            "heading_size": 48,
+            "heading_color": "#ffffff",
             "subheading": "Your Trusted Source for Quality Bender Board® & Klingstone® Products",
+            "subheading_size": 20,
+            "text_color": "#ffffff",
+            "text_align": "center",
             "button_link": "#",
-            "button_text": "Learn More"
+            "button_text": "Learn More",
+            "button_color": "#ffffff",
+            "button_text_color": "#000000",
+            "bg_position": "center"
           }
         },
         "banner_slide_wcwbFe": {
           "type": "banner_slide",
           "settings": {
             "image": "shopify://shop_images/IMG_1589.jpg",
+            "bg_opacity": 1,
+            "overlay_opacity": 0.3,
             "heading": "Klingstone® Paths",
+            "heading_size": 48,
+            "heading_color": "#ffffff",
             "subheading": "Create and Maintain Beautiful, Durable Pathways",
+            "subheading_size": 20,
+            "text_color": "#ffffff",
+            "text_align": "center",
             "button_link": "#",
-            "button_text": "Shop Now"
+            "button_text": "Shop Now",
+            "button_color": "#ffffff",
+            "button_text_color": "#000000",
+            "bg_position": "center"
           }
         }
       },
@@ -37,7 +57,11 @@
         "banner_slide_GQ7qfK",
         "banner_slide_wcwbFe"
       ],
-      "settings": {}
+      "settings": {
+        "autoplay_delay": 5000,
+        "disable_on_interaction": true,
+        "show_navigation": true
+      }
     },
     "rich_text_W9iFT3": {
       "type": "rich-text",
