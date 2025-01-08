@@ -11,6 +11,40 @@
   "sections": {
     "vb_custom_banner_AaqREW": {
       "type": "vb-custom-banner",
+      "blocks": {
+        "banner_slide_GQ7qfK": {
+          "type": "banner_slide",
+          "settings": {
+            "heading": "Howell Pathways",
+            "subheading": "Your Trusted Source for Quality Bender Board® & Klingstone® Products",
+            "button_link": "#",
+            "button_text": "Learn More"
+          }
+        },
+        "banner_slide_wcwbFe": {
+          "type": "banner_slide",
+          "settings": {
+            "heading": "",
+            "subheading": "",
+            "button_link": "",
+            "button_text": ""
+          }
+        },
+        "banner_slide_Vpmtja": {
+          "type": "banner_slide",
+          "settings": {
+            "heading": "",
+            "subheading": "",
+            "button_link": "",
+            "button_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "banner_slide_GQ7qfK",
+        "banner_slide_wcwbFe",
+        "banner_slide_Vpmtja"
+      ],
       "settings": {}
     },
     "rich_text_W9iFT3": {
