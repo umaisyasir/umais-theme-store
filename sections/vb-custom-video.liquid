@@ -1,6 +1,123 @@
-{% schema %}
-  {
-    "name": "Section name",
-    "settings": []
+{% stylesheet %}
+/* Video Section Styling */
+.video-section {
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+  background-color: #000;
+}
+
+.video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--overlay-background-color);
+  opacity: 0.7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--overlay-text-color);
+}
+
+.video-overlay-text {
+  text-align: center;
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.overlay-title {
+  font-size: 30px;
+  font-weight: 600;
+  color: var(--overlay-text-color);
+}
+
+@media (max-width: 768px) {
+  .video-overlay-text {
+    font-size: 1.5em;
   }
+}
+{% endstylesheet %}
+
+<div class="video-section">
+  <div class="video-container">
+    <iframe class="video" src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <div class="video-overlay">
+      <div class="video-overlay-text">
+        <p class="overlay-title">Perfect for large scale and at-home projects</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% javascript %}
+document.addEventListener('DOMContentLoaded', function () {
+  const videoContainer = document.querySelector('.video-container');
+  
+  const videoId = "{{ settings.video_id }}";
+  const videoUrl = `https://www.youtube.com/embed/${videoId}`;
+
+  const iframe = videoContainer.querySelector('.video');
+  iframe.src = videoUrl;
+  
+  const overlay = videoContainer.querySelector('.video-overlay');
+  overlay.style.backgroundColor = "{{ settings.overlay_background_color }}";
+  
+  const overlayText = videoContainer.querySelector('.overlay-title');
+  overlayText.style.color = "{{ settings.overlay_text_color }}";
+});
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "VB - Custom YT Video",
+  "settings": [
+    {
+      "type": "text",
+      "label": "Video Title",
+      "id": "video_title",
+      "default": "Perfect for large scale and at-home projects"
+    },
+    {
+      "type": "text",
+      "label": "YouTube Video ID",
+      "id": "video_id",
+      "default": "YOUR_VIDEO_ID"
+    },
+    {
+      "type": "color",
+      "label": "Overlay Background Color",
+      "id": "overlay_background_color",
+      "default": "#000000"
+    },
+    {
+      "type": "text",
+      "label": "Overlay Text Color",
+      "id": "overlay_text_color",
+      "default": "#FFFFFF"
+    }
+  ],
+  "presets": [
+    {
+      "name": "VB - Custom YT Video",
+      "category": "Custom"
+    }
+  ]
+}
 {% endschema %}
