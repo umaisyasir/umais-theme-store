@@ -158,17 +158,17 @@
             {%- endfor -%}
             <div class="custom-footer-container footer-block grid__item">
     <div class="custom-social-links">
-        {% if settings.facebook_url %}
-            <a href="{{ settings.facebook_url }}" class="custom-social-icon custom-facebook" aria-label="Facebook"></a>
+        {% if block.settings.facebook_url %}
+            <a href="{{ block.settings.facebook_url }}" class="custom-social-icon custom-facebook" aria-label="Facebook"></a>
         {% endif %}
-        {% if settings.pinterest_url %}
-            <a href="{{ settings.pinterest_url }}" class="custom-social-icon custom-pinterest" aria-label="Pinterest"></a>
+        {% if block.settings.pinterest_url %}
+            <a href="{{ block.settings.pinterest_url }}" class="custom-social-icon custom-pinterest" aria-label="Pinterest"></a>
         {% endif %}
-        {% if settings.houzz_url %}
-            <a href="{{ settings.houzz_url }}" class="custom-social-icon custom-houzz" aria-label="Houzz"></a>
+        {% if block.settings.houzz_url %}
+            <a href="{{ block.settings.houzz_url }}" class="custom-social-icon custom-houzz" aria-label="Houzz"></a>
         {% endif %}
-        {% if settings.yelp_url %}
-            <a href="{{ settings.yelp_url }}" class="custom-social-icon custom-yelp" aria-label="Yelp"></a>
+        {% if block.settings.yelp_url %}
+            <a href="{{ block.settings.yelp_url }}" class="custom-social-icon custom-yelp" aria-label="Yelp"></a>
         {% endif %}
     </div>
 
@@ -176,7 +176,7 @@
         <div class="custom-contact-block">
             <h3>DIY Orders</h3>
             <p>Se Habla Español</p>
-            <p><a href="tel:+{{ settings.diy_phone }}" class="custom-phone-link">{{ settings.diy_phone }}</a></p>
+            <p><a href="tel:+{{ block.settings.diy_phone }}" class="custom-phone-link">{{ block.settings.diy_phone }}</a></p>
         </div>
         <hr class="custom-divider">
         <div class="custom-contact-block">
@@ -184,7 +184,7 @@
             <p>7am-6pm CST</p>
             <h3>Klingstone Paths Inquiries</h3>
             <p>8am-4pm CST</p>
-            <p><a href="tel:+{{ settings.wholesale_phone }}" class="custom-phone-link">{{ settings.wholesale_phone }}</a></p>
+            <p><a href="tel:+{{ block.settings.wholesale_phone }}" class="custom-phone-link">{{ block.settings.wholesale_phone }}</a></p>
         </div>
     </div>
 </div>
