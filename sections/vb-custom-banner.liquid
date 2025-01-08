@@ -144,45 +144,46 @@
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Ensure the template variables are outputting the correct values
-    var autoplayDelay = {{ section.settings.autoplay_delay | default: 5000 }}; 
-    var disableOnInteraction = {{ section.settings.disable_on_interaction | default: 'false' }}; // default false, use string 'false'
+    document.addEventListener('DOMContentLoaded', function() {
+      // Ensure the template variables are outputting the correct values
+      var autoplayDelay = {{ section.settings.autoplay_delay | default: 5000 }}; 
+      var disableOnInteraction = {{ section.settings.disable_on_interaction | default: 'false' }}; // default false, use string 'false'
 
-    // Ensure that the swiper-container element exists
-    var swiperContainer = document.querySelector('.swiper-container');
-    if (!swiperContainer) {
-      console.error('Swiper container not found!');
-      return;
-    }
+      // Ensure that the swiper-container element exists
+      var swiperContainer = document.querySelector('.swiper-container');
+      if (!swiperContainer) {
+        console.error('Swiper container not found!');
+        return;
+      }
 
-    // Initialize Swiper
-    var swiper = new Swiper('.swiper-container', {
-      effect: 'fade',
-      loop: true,
-      autoplay: {
-        delay: autoplayDelay, // Delay value should be passed here
-        disableOnInteraction: disableOnInteraction === 'true' ? true : false, // Convert string 'false'/'true' to boolean
-      },
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true, // Make the dots clickable
-      },
-      fadeEffect: {
-        crossFade: true,
-      },
-      on: {
-        slideChange: function () {
-          // You could manually trigger something on each slide change, if needed
-          this.pagination.update();  // Manually update pagination if needed (rarely required)
-        }
-      },
+      // Initialize Swiper
+      var swiper = new Swiper('.swiper-container', {
+        effect: 'fade',
+        loop: true,
+        autoplay: {
+          delay: autoplayDelay, // Delay value should be passed here
+          disableOnInteraction: disableOnInteraction === 'true' ? true : false, // Convert string 'false'/'true' to boolean
+        },
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true, // Ensure the dots are clickable
+        },
+        fadeEffect: {
+          crossFade: true,
+        },
+        on: {
+          slideChange: function () {
+            // Manually trigger pagination update if needed (not usually required)
+            this.pagination.update();
+            console.log('Slide changed, pagination updated!');
+          }
+        },
+      });
+
+      // Debugging message to confirm if Swiper initialized
+      console.log('Swiper initialized');
     });
-
-    // Debugging message to confirm if Swiper initialized
-    console.log('Swiper initialized');
-  });
-</script>
+  </script>
 
 
 {% schema %}
