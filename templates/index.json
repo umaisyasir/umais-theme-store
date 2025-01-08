@@ -53,7 +53,7 @@
       ],
       "settings": {
         "autoplay_delay": 5000,
-        "disable_on_interaction": true
+        "disable_on_interaction": false
       }
     },
     "rich_text_W9iFT3": {
