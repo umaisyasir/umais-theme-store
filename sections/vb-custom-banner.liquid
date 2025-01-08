@@ -149,10 +149,6 @@
     var autoplayDelay = {{ section.settings.autoplay_delay | default: 5000 }}; 
     var disableOnInteraction = {{ section.settings.disable_on_interaction | default: 'false' }}; // default false, use string 'false'
 
-    // Check if the correct value is rendered for debugging
-    console.log('Autoplay Delay:', autoplayDelay);
-    console.log('Disable on Interaction:', disableOnInteraction);
-
     // Ensure that the swiper-container element exists
     var swiperContainer = document.querySelector('.swiper-container');
     if (!swiperContainer) {
@@ -170,10 +166,16 @@
       },
       pagination: {
         el: '.swiper-pagination',
-        clickable: true,
+        clickable: true, // Make the dots clickable
       },
       fadeEffect: {
         crossFade: true,
+      },
+      on: {
+        slideChange: function () {
+          // You could manually trigger something on each slide change, if needed
+          this.pagination.update();  // Manually update pagination if needed (rarely required)
+        }
       },
     });
 
@@ -181,6 +183,7 @@
     console.log('Swiper initialized');
   });
 </script>
+
 
 {% schema %}
 {
