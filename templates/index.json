@@ -31,7 +31,6 @@
         },
         "banner_slide_h8ywh6": {
           "type": "banner_slide",
-          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/IMG_1589.jpg",
             "heading": "Klingstone® Paths",
