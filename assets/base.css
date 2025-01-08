@@ -3610,6 +3610,9 @@ h2.rich-text__heading.rte.inline-richtext.h1.scroll-trigger.animate--slide-in:be
   .footer-block__details-content .list-menu__item--link {
     justify-content: center;
   }
+  .header {
+    padding: 10px 1rem !important;
+  }
 }
 
 header.header.header--middle-left.header--mobile-left.page-width.header--has-menu.header--has-account {
