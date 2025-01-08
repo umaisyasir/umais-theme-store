@@ -1,20 +1,15 @@
 {% stylesheet %}
-/* Video Section Styling */
+/* Styling for Video Section */
 .video-section {
   position: relative;
-  max-width: 100%;
+  width: 100%;
+  margin: 0 auto;
+  padding-top: 56.25%; /* Aspect ratio of 16:9 for the video */
+  background: #000;
   overflow: hidden;
 }
 
-.video-container {
-  position: relative;
-  width: 100%;
-  height: 0;
-  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-  background-color: #000;
-}
-
-.video {
+.video-wrapper {
   position: absolute;
   top: 0;
   left: 0;
@@ -22,7 +17,13 @@
   height: 100%;
 }
 
-.video-overlay {
+.video {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -34,52 +35,43 @@
   justify-content: center;
   align-items: center;
   color: var(--overlay-text-color);
-}
-
-.video-overlay-text {
   text-align: center;
-  font-size: 2em;
-  font-weight: bold;
 }
 
-.overlay-title {
+.overlay-text {
   font-size: 30px;
-  font-weight: 600;
+  font-weight: bold;
   color: var(--overlay-text-color);
 }
 
 @media (max-width: 768px) {
-  .video-overlay-text {
-    font-size: 1.5em;
+  .overlay-text {
+    font-size: 20px;
   }
 }
 {% endstylesheet %}
 
 <div class="video-section">
-  <div class="video-container">
-    <iframe class="video" src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    <div class="video-overlay">
-      <div class="video-overlay-text">
-        <p class="overlay-title">Perfect for large scale and at-home projects</p>
-      </div>
+  <div class="video-wrapper">
+    <iframe class="video" 
+            src="https://www.youtube.com/embed/{{ settings.video_id }}" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen></iframe>
+    <div class="overlay">
+      <p class="overlay-text">{{ settings.overlay_text }}</p>
     </div>
   </div>
 </div>
 
 {% javascript %}
 document.addEventListener('DOMContentLoaded', function () {
-  const videoContainer = document.querySelector('.video-container');
-  
-  const videoId = "{{ settings.video_id }}";
-  const videoUrl = `https://www.youtube.com/embed/${videoId}`;
+  // Set dynamic CSS variables based on Shopify settings
+  const overlay = document.querySelector('.overlay');
+  const overlayText = document.querySelector('.overlay-text');
 
-  const iframe = videoContainer.querySelector('.video');
-  iframe.src = videoUrl;
-  
-  const overlay = videoContainer.querySelector('.video-overlay');
+  // Update overlay background and text colors
   overlay.style.backgroundColor = "{{ settings.overlay_background_color }}";
-  
-  const overlayText = videoContainer.querySelector('.overlay-title');
   overlayText.style.color = "{{ settings.overlay_text_color }}";
 });
 {% endjavascript %}
@@ -90,27 +82,31 @@ document.addEventListener('DOMContentLoaded', function () {
   "settings": [
     {
       "type": "text",
-      "label": "Video Title",
-      "id": "video_title",
-      "default": "Perfect for large scale and at-home projects"
+      "label": "Video ID",
+      "id": "video_id",
+      "default": "YOUR_VIDEO_ID",
+      "info": "Enter the YouTube video ID"
     },
     {
       "type": "text",
-      "label": "YouTube Video ID",
-      "id": "video_id",
-      "default": "YOUR_VIDEO_ID"
+      "label": "Overlay Text",
+      "id": "overlay_text",
+      "default": "Perfect for large scale and at-home projects",
+      "info": "Text to display over the video"
     },
     {
       "type": "color",
       "label": "Overlay Background Color",
       "id": "overlay_background_color",
-      "default": "#000000"
+      "default": "#000000",
+      "info": "Background color of the overlay"
     },
     {
-      "type": "text",
+      "type": "color",
       "label": "Overlay Text Color",
       "id": "overlay_text_color",
-      "default": "#FFFFFF"
+      "default": "#FFFFFF",
+      "info": "Text color of the overlay"
     }
   ],
   "presets": [
