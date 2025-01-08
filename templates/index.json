@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "image_banner": {
@@ -31,45 +40,52 @@
         "image_height": "large",
         "desktop_content_position": "bottom-center",
         "show_text_box": false,
-        "image_behavior": "none",
         "desktop_content_alignment": "center",
         "color_scheme": "scheme-3",
+        "image_behavior": "none",
         "mobile_content_alignment": "center",
         "stack_images_on_mobile": false,
         "show_text_below": false
       }
     },
-    "featured_collection": {
-      "type": "featured-collection",
+    "rich_text_W9iFT3": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_a4KHLD": {
+          "type": "heading",
+          "settings": {
+            "heading": "Welcome to Howell Pathways",
+            "heading_size": "h1"
+          }
+        },
+        "text_xnrGxp": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Wanting to construct a beautiful, sturdy and environmentally friendly pathway? Need an affordable answer to your drainage issues? We may just have the solution you’re looking for.</p><p>Learn how Howell Pathways can give you a beautiful, safe, and effective solution to water runoff problems. Turn to us for a simple solution that produces solid results. Our pathway stabilizers are crafted as a precision polyurethane sealant to make your paths and landscape materials both ADA compliant and coated to protect against water issues.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_a4KHLD",
+        "text_xnrGxp"
+      ],
+      "custom_css": [
+        ".rich-text__text.rte.scroll-trigger.animate--slide-in {text-align: left; color: white;}",
+        ".rich-text.content-container {background: #62664b;}",
+        "h2.rich-text__heading.rte.inline-richtext.h1.scroll-trigger.animate--slide-in {color: white;}"
+      ],
       "settings": {
-        "title": "Featured products",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "collection": "all",
-        "products_to_show": 8,
-        "columns_desktop": 4,
-        "color_scheme": "scheme-1",
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "solid",
-        "enable_desktop_slider": false,
-        "swipe_on_mobile": false,
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "padding_top": 44,
-        "padding_bottom": 36
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
       }
     }
   },
   "order": [
     "image_banner",
-    "featured_collection"
+    "rich_text_W9iFT3"
   ]
 }
