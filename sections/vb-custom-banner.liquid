@@ -150,7 +150,7 @@
       loop: true,
       autoplay: {
         delay: {{ section.settings.autoplay_delay | default: 5000 }}, // Fallback value
-        disableOnInteraction: {{ section.settings.disable_on_interaction | default: true }}, // Disables autoplay when interacting
+        disableOnInteraction: false, // Disables autoplay when interacting
       },
       pagination: {
         el: '.swiper-pagination',
