@@ -171,13 +171,21 @@
       fadeEffect: {
         crossFade: true,
       },
-      // Removed manual pagination update, as it's not needed
+      on: {
+        slideChange: function () {
+          // Custom action on slide change
+          console.log('Slide changed to index: ' + swiper.realIndex);  // Log the new slide index
+          
+          // Add any custom code you want to run on each slide change
+        }
+      },
     });
 
     // Debugging message to confirm if Swiper initialized
     console.log('Swiper initialized');
   });
 </script>
+
 
 
 {% schema %}
