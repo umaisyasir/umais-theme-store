@@ -145,12 +145,16 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
+    var autoplayDelay = {{ section.settings.autoplay_delay | default: 5000 }}; // Ensure the fallback is properly rendered
+    var disableOnInteraction = {{ section.settings.disable_on_interaction | default: 'false' }}; // Default false as string
+
+    // Initialize Swiper after the DOM is loaded
     var swiper = new Swiper('.swiper-container', {
       effect: 'fade',
       loop: true,
       autoplay: {
-        delay: {{ section.settings.autoplay_delay | default: 5000 }}, // Fallback value
-        disableOnInteraction: {{ section.settings.disable_on_interaction | default: false }},
+        delay: autoplayDelay, // Use the variable that has the correct value
+        disableOnInteraction: disableOnInteraction === 'true' ? true : false, // Convert to boolean
       },
       pagination: {
         el: '.swiper-pagination',
