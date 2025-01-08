@@ -150,11 +150,7 @@
     loop: true,
     autoplay: {
       delay: {{ section.settings.autoplay_delay }},
-      disableOnInteraction: false,
-    },
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
+      disableOnInteraction: {{ section.settings.disable_on_interaction | json }},
     },
     pagination: {
       el: '.swiper-pagination',
