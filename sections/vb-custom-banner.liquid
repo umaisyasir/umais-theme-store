@@ -146,21 +146,24 @@
 <script>
   document.addEventListener('DOMContentLoaded', function () {
   var swiper = new Swiper('.swiper-container', {
-    loop: true,
     effect: 'fade',
+    loop: true,
     autoplay: {
-      delay: {{section.settings.autoplay_delay}},
-      disableOnInteraction: false,
+      delay: {{ section.settings.autoplay_delay }},
+      disableOnInteraction: {{ section.settings.disable_on_interaction | json }},
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
     },
     pagination: {
       el: '.swiper-pagination',
-      clickable: true,
+      clickable: true, // Make dots clickable
     },
     fadeEffect: {
       crossFade: true,
     },
   });
-});
 
 </script>
 
