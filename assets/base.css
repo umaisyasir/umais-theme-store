@@ -3626,6 +3626,7 @@ small.copyright__content a {
 
 small.copyright__content a:hover {
     color: #62664b !important;
+    text-decoration: none !important;
 }
 
 header.header.header--middle-left.header--mobile-left.page-width.header--has-menu.header--has-account {
