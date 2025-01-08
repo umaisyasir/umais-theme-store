@@ -25,6 +25,7 @@
         "banner_slide_wcwbFe": {
           "type": "banner_slide",
           "settings": {
+            "image": "shopify://shop_images/IMG_1589.jpg",
             "heading": "Klingstone® Paths",
             "subheading": "Create and Maintain Beautiful, Durable Pathways",
             "button_link": "#",
