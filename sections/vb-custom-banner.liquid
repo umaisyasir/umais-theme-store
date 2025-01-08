@@ -126,7 +126,7 @@
         <div class="swiper-slide">
           <div class="banner-slide">
             <!-- Image tag for the slide -->
-            <img src="{{ block.settings.image | img_url: '1920x1080' }}" alt="Slide Image" style="object-position: {{ block.settings.bg_position }};">
+            <img src="{{ block.settings.image | img_url: '1688x650' }}" alt="Slide Image" style="object-position: {{ block.settings.bg_position }};">
             
             <div class="banner-content" style="text-align: {{ block.settings.text_align }};">
               <h2 style="font-size: {{ block.settings.heading_size }}px; color: {{ block.settings.text_color }};">{{ block.settings.heading }}</h2>
@@ -153,6 +153,7 @@
     pagination: {
       el: '.swiper-pagination',
       clickable: true,
+      type: 'bullets',  // Ensures the dots pagination is used
     },
     fadeEffect: {
       crossFade: true,
