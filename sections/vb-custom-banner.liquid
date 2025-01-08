@@ -1,41 +1,69 @@
 {% stylesheet %}
-.swiper-container {
+.banner-slider-container {
   width: 100%;
-  height: 100%;
   position: relative;
+  overflow: hidden;
 }
 
-.swiper-wrapper {
-  display: flex;
+.swiper-container {
+  width: 100%;
+  height: 100vh;
 }
 
 .swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.banner-slide {
+  width: 100%;
+  height: 100%;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
-.slide-content {
-  position: relative;
+.banner-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.banner-content {
   text-align: center;
   color: #fff;
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 20px;
-  max-width: 80%;
+  position: relative;
+  z-index: 2;
 }
 
-.slide-content img {
-  width: 100%;
-  height: auto;
+.banner-content h2 {
+  font-size: 48px;
+  margin-bottom: 20px;
+  font-weight: bold;
 }
 
-.slide-text {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
+.banner-content p {
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+.banner-btn {
+  display: inline-block;
+  padding: 12px 25px;
+  background-color: #fff;
+  color: #000;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 5px;
 }
 
 .swiper-pagination {
@@ -43,35 +71,69 @@
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
+  z-index: 3;
 }
 
-.swiper-button-next,
-.swiper-button-prev {
-  color: #fff;
+.swiper-pagination-bullet {
+  background-color: #fff;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin: 0 4px;
+  opacity: 0.7;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #000;
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .banner-content h2 {
+    font-size: 32px;
+  }
+  .banner-content p {
+    font-size: 16px;
+  }
+  .swiper-container {
+    height: 60vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .banner-content h2 {
+    font-size: 24px;
+  }
+  .banner-content p {
+    font-size: 14px;
+  }
+  .swiper-container {
+    height: 50vh;
+  }
 }
 {% endstylesheet %}
 
-<div class="swiper-container">
-  <div class="swiper-wrapper">
-    {% for block in section.blocks %}
-      {% if block.settings.image != blank %}
+<div class="banner-slider-container">
+  <div class="swiper mySwiper swiper-container">
+    <div class="swiper-wrapper">
+      {% for block in section.blocks %}
         <div class="swiper-slide">
-          <div class="slide-content">
-            <img src="{{ block.settings.image | img_url: 'original' }}" alt="Slide Image">
-            <div class="slide-text">
-              <h2>{{ block.settings.title }}</h2>
-              <p>{{ block.settings.description }}</p>
+          <div class="banner-slide">
+            <!-- Image tag for the slide -->
+            <img src="{{ block.settings.image | img_url: '1688x650' }}" alt="Slide Image" style="object-position: {{ block.settings.bg_position }};">
+            
+            <div class="banner-content" style="text-align: {{ block.settings.text_align }};">
+              <h2 style="font-size: {{ block.settings.heading_size }}px; color: {{ block.settings.text_color }}; margin: 0; ">{{ block.settings.heading }}</h2>
+              <p style="font-size: {{ block.settings.subheading_size }}px; color: {{ block.settings.text_color }};">{{ block.settings.subheading }}</p>
+              <a href="{{ block.settings.button_link }}" class="banner-btn" style="background-color: {{ block.settings.button_color }}; color: {{ block.settings.button_text_color }};">{{ block.settings.button_text }}</a>
             </div>
           </div>
         </div>
-      {% endif %}
-    {% endfor %}
+      {% endfor %}
+    </div>
+    <!-- Pagination dots -->
+    <div class="swiper-pagination"></div>
   </div>
-  <!-- Add Pagination -->
-  <div class="swiper-pagination"></div>
-  <!-- Add Navigation -->
-  <div class="swiper-button-next"></div>
-  <div class="swiper-button-prev"></div>
 </div>
 
 <script>
@@ -96,33 +158,116 @@
     },
   });
 });
+
 </script>
 
 {% schema %}
 {
   "name": "VB - Banner Slider",
-  "settings": [],
+  "settings": [
+    {
+      "type": "range",
+      "id": "autoplay_delay",
+      "label": "Autoplay Delay (ms)",
+      "min": 1000,
+      "max": 5000,
+      "step": 500,
+      "default": 5000
+    },
+    {
+      "type": "checkbox",
+      "id": "disable_on_interaction",
+      "label": "Disable autoplay on interaction",
+      "default": true
+    }
+  ],
   "blocks": [
     {
-      "type": "slide",
-      "name": "Slide",
+      "type": "banner_slide",
+      "name": "Banner Slide",
       "settings": [
         {
           "type": "image_picker",
-          "label": "Slide Image",
-          "id": "image"
+          "id": "image",
+          "label": "Background Image"
         },
         {
           "type": "text",
-          "label": "Slide Title",
-          "id": "title",
-          "default": "Slide Title"
+          "id": "heading",
+          "label": "Heading Text"
         },
         {
-          "type": "textarea",
-          "label": "Slide Description",
-          "id": "description",
-          "default": "Slide Description"
+          "type": "text",
+          "id": "subheading",
+          "label": "Subheading Text"
+        },
+        {
+          "type": "range",
+          "id": "heading_size",
+          "label": "Heading Font Size (px)",
+          "min": 16,
+          "max": 72,
+          "default": 48
+        },
+        {
+          "type": "range",
+          "id": "subheading_size",
+          "label": "Subheading Font Size (px)",
+          "min": 12,
+          "max": 36,
+          "default": 20
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "select",
+          "id": "text_align",
+          "label": "Text Alignment",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "center", "label": "Center" },
+            { "value": "right", "label": "Right" }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text"
+        },
+        {
+          "type": "color",
+          "id": "button_color",
+          "label": "Button Background Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "button_text_color",
+          "label": "Button Text Color",
+          "default": "#000000"
+        },
+        {
+          "type": "select",
+          "id": "bg_position",
+          "label": "Image Position",
+          "options": [
+            { "value": "center", "label": "Center" },
+            { "value": "top", "label": "Top" },
+            { "value": "bottom", "label": "Bottom" },
+            { "value": "left", "label": "Left" },
+            { "value": "right", "label": "Right" }
+          ],
+          "default": "center"
         }
       ]
     }
