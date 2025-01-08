@@ -99,32 +99,23 @@
           "settings": {
             "title": "DIY Orders",
             "subtitle": "Se Habla Español",
-            "phone": "9365534243",
-            "box_background_color": "#2e4149",
-            "button_color": "#899d87",
-            "button_hover_color": "#6f836c"
+            "phone": "(936) 553-4243"
           }
         },
         "contact_box_Ta8gPz": {
           "type": "contact_box",
           "settings": {
-            "title": "DIY Orders",
-            "subtitle": "Se Habla Español",
-            "phone": "9365534243",
-            "box_background_color": "#2e4149",
-            "button_color": "#899d87",
-            "button_hover_color": "#6f836c"
+            "title": "Contractors, Bulk, and Wholesale Orders",
+            "subtitle": "7am-6pm CST",
+            "phone": "(281) 798-6772"
           }
         },
         "contact_box_bVAKaM": {
           "type": "contact_box",
           "settings": {
-            "title": "DIY Orders",
-            "subtitle": "Se Habla Español",
-            "phone": "9365534243",
-            "box_background_color": "#2e4149",
-            "button_color": "#899d87",
-            "button_hover_color": "#6f836c"
+            "title": "Klingstone Paths Inquires",
+            "subtitle": "8am-4pm CST",
+            "phone": "(281) 798-6772"
           }
         }
       },
@@ -134,9 +125,7 @@
         "contact_box_bVAKaM"
       ],
       "settings": {
-        "heading": "Contact Our Customer Service",
-        "background_color": "#1c2c33",
-        "text_color": "#ffffff"
+        "heading": "Contact Our Customer Service"
       }
     }
   },
