@@ -89,10 +89,10 @@
   opacity: 1;
 }
 
-  span.swiper-pagination-bullet {
-    background: white;
-    height: 15px;
-    width: 15px;
+span.swiper-pagination-bullet {
+  background: white;
+  height: 15px;
+  width: 15px;
 }
 
 @media (max-width: 768px) {
@@ -150,7 +150,7 @@
   document.addEventListener('DOMContentLoaded', function() {
     // Ensure the template variables are outputting the correct values
     var autoplayDelay = {{ section.settings.autoplay_delay | default: 5000 }}; 
-    var disableOnInteraction = {{ section.settings.disable_on_interaction | default: 'false' }}; // default false, use string 'false'
+    var disableOnInteraction = {{ section.settings.disable_on_interaction | default: false }}; // Corrected to boolean
 
     // Ensure that the swiper-container element exists
     var swiperContainer = document.querySelector('.swiper-container');
@@ -164,8 +164,8 @@
       effect: 'fade',
       loop: true,
       autoplay: {
-        delay: autoplayDelay, // Delay value should be passed here
-        disableOnInteraction: disableOnInteraction === 'true' ? true : false, // Convert string 'false'/'true' to boolean
+        delay: autoplayDelay, // Delay value passed here
+        disableOnInteraction: disableOnInteraction, // Use boolean directly
       },
       pagination: {
         el: '.swiper-pagination',
@@ -180,7 +180,6 @@
     console.log('Swiper initialized');
   });
 </script>
-
 
 {% schema %}
 {
