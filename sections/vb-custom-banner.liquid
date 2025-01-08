@@ -145,30 +145,45 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    var autoplayDelay = {{ section.settings.autoplay_delay | default: 5000 }}; // Ensure the fallback is properly rendered
-    var disableOnInteraction = {{ section.settings.disable_on_interaction | default: 'false' }}; // Default false as string
+    // Ensure the template variables are outputting the correct values
+    var autoplayDelay = {{ section.settings.autoplay_delay | default: 5000 }}; 
+    var disableOnInteraction = {{ section.settings.disable_on_interaction | default: 'false' }}; // default false, use string 'false'
 
-    // Initialize Swiper after the DOM is loaded
+    // Check if the correct value is rendered for debugging
+    console.log('Autoplay Delay:', autoplayDelay);
+    console.log('Disable on Interaction:', disableOnInteraction);
+
+    // Ensure that the swiper-container element exists
+    var swiperContainer = document.querySelector('.swiper-container');
+    if (!swiperContainer) {
+      console.error('Swiper container not found!');
+      return;
+    }
+
+    // Initialize Swiper
     var swiper = new Swiper('.swiper-container', {
       effect: 'fade',
       loop: true,
       autoplay: {
-        delay: autoplayDelay, // Use the variable that has the correct value
-        disableOnInteraction: disableOnInteraction === 'true' ? true : false, // Convert to boolean
+        delay: autoplayDelay, // Delay value should be passed here
+        disableOnInteraction: disableOnInteraction === 'true' ? true : false, // Convert string 'false'/'true' to boolean
       },
       pagination: {
         el: '.swiper-pagination',
-        clickable: true, // Make dots clickable
+        clickable: true,
       },
       fadeEffect: {
         crossFade: true,
       },
       on: {
         slideChange: function () {
-          swiper.pagination.update(); // Ensure pagination updates when sliding manually
+          swiper.pagination.update(); // Ensure pagination updates
         }
       },
     });
+
+    // Debugging message to confirm if Swiper initialized
+    console.log('Swiper initialized');
   });
 </script>
 
