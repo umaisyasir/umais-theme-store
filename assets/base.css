@@ -3621,6 +3621,7 @@ h2.rich-text__heading.rte.inline-richtext.h1.scroll-trigger.animate--slide-in:be
 
 small.copyright__content a {
     color: #c0ce6e !important;
+  transition: 0.3s;
 }
 
 small.copyright__content a:hover {
