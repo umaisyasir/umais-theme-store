@@ -298,108 +298,76 @@
   async function saveReactionsToShopify() {
     const url = `https://${shopUrl}/admin/api/2023-01/products/${productId}/metafields.json`;
 
-    const data = [
-      {
-        metafield: {
-          namespace: 'custom_data',
-          key: 'like_reactions',
-          value: likeCount.toString(),
-          value_type: 'integer',
-        }
-      },
-      {
-        metafield: {
-          namespace: 'custom_data',
-          key: 'love_reactions',
-          value: loveCount.toString(),
-          value_type: 'integer',
-        }
-      },
-      {
-        metafield: {
-          namespace: 'custom_data',
-          key: 'wow_reactions',
-          value: wowCount.toString(),
-          value_type: 'integer',
-        }
-      }
-    ];
+    const data = {
+      metafields: [
+        { namespace: 'social', key: 'like_reactions', value: likeCount.toString(), value_type: 'integer' },
+        { namespace: 'social', key: 'love_reactions', value: loveCount.toString(), value_type: 'integer' },
+        { namespace: 'social', key: 'wow_reactions', value: wowCount.toString(), value_type: 'integer' },
+      ],
+    };
 
-    try {
-      await Promise.all(data.map(async (item) => {
-        await fetch(url, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Shopify-Access-Token': accessToken,
-          },
-          body: JSON.stringify(item),
-        });
-      }));
-    } catch (error) {
-      console.error('Error saving reaction:', error);
-    }
+    await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Shopify-Access-Token': accessToken,
+      },
+      body: JSON.stringify(data),
+    });
   }
 
-  // Submit a comment
-  async function submitComment() {
-    const commentText = document.getElementById('comment-box').value.trim();
-    if (!commentText) return;
-
-    comments.unshift(commentText);
-    saveCommentsToShopify();
-
-    // Display the new comment
-    const commentContainer = document.getElementById('comments-container');
-    const commentItem = document.createElement('div');
-    commentItem.classList.add('comment-item');
-    commentItem.innerHTML = `<p>${commentText}</p>`;
-    commentContainer.prepend(commentItem);
-
-    // Clear the comment box
-    document.getElementById('comment-box').value = '';
+  // Submit comment
+  function submitComment() {
+    const commentBox = document.getElementById('comment-box');
+    const commentText = commentBox.value.trim();
+    if (commentText) {
+      comments.push(commentText);
+      commentBox.value = '';  // Clear the comment box
+      saveCommentsToShopify();
+      displayComments();
+    }
   }
 
   // Save comments to Shopify Metafields
   async function saveCommentsToShopify() {
     const url = `https://${shopUrl}/admin/api/2023-01/products/${productId}/metafields.json`;
+
     const data = {
-      metafield: {
-        namespace: 'custom_data',
-        key: 'comments',
-        value: JSON.stringify(comments),
-        value_type: 'string',
-      },
+      metafields: [
+        {
+          namespace: 'social',
+          key: 'comments',
+          value: JSON.stringify(comments),
+          value_type: 'json_string',
+        },
+      ],
     };
 
-    try {
-      await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Shopify-Access-Token': accessToken,
-        },
-        body: JSON.stringify(data),
-      });
-    } catch (error)      {
-      console.error('Error saving comment:', error);
-    }
+    await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Shopify-Access-Token': accessToken,
+      },
+      body: JSON.stringify(data),
+    });
   }
 
-  // Display comments
+  // Display comments in the UI
   function displayComments() {
-    const commentContainer = document.getElementById('comments-container');
-    commentContainer.innerHTML = '';
+    const commentsContainer = document.getElementById('comments-container');
+    commentsContainer.innerHTML = '';
+
     comments.forEach(comment => {
       const commentItem = document.createElement('div');
       commentItem.classList.add('comment-item');
       commentItem.innerHTML = `<p>${comment}</p>`;
-      commentContainer.appendChild(commentItem);
+      commentsContainer.appendChild(commentItem);
     });
   }
 
-  // Fetch reactions and comments on page load
-  window.onload = fetchReactionsAndComments;
+  // Call the function to fetch initial reactions and comments on page load
+  fetchReactionsAndComments();
 </script>
 
 {% schema %}
