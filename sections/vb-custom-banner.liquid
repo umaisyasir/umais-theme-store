@@ -174,23 +174,23 @@
 <div class="social-interactions">
   <!-- Reaction Buttons -->
   <div class="reaction-buttons">
-    <button class="reaction-btn" id="like-btn" onclick="reactToProduct(productId, 'like')">
-      <span class="icon"><i class="fas fa-thumbs-up"></i></span> Like <span id="like-count">234</span>
+    <button class="reaction-btn" id="like-btn" onclick="reactToProduct('like')">
+      <span class="icon"><i class="fas fa-thumbs-up"></i></span> Like <span id="like-count">0</span>
     </button>
 
-    <button class="reaction-btn" id="love-btn" onclick="reactToProduct(productId, 'love')">
-      <span class="icon"><i class="fas fa-heart"></i></span> Love <span id="love-count">56</span>
+    <button class="reaction-btn" id="love-btn" onclick="reactToProduct('love')">
+      <span class="icon"><i class="fas fa-heart"></i></span> Love <span id="love-count">0</span>
     </button>
 
-    <button class="reaction-btn" id="wow-btn" onclick="reactToProduct(productId, 'wow')">
-      <span class="icon"><i class="fas fa-surprise"></i></span> Wow <span id="wow-count">12</span>
+    <button class="reaction-btn" id="wow-btn" onclick="reactToProduct('wow')">
+      <span class="icon"><i class="fas fa-surprise"></i></span> Wow <span id="wow-count">0</span>
     </button>
   </div>
 
   <!-- Comment Section -->
   <div class="comment-section">
     <textarea class="comment-box" id="comment-box" placeholder="Add a comment..."></textarea>
-    <button class="submit-btn" id="submit-comment" onclick="submitComment(productId, document.getElementById('comment-box').value)">
+    <button class="submit-btn" id="submit-comment" onclick="submitComment()">
       Submit Comment
     </button>
 
