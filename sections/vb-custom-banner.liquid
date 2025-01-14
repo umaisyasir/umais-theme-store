@@ -202,103 +202,118 @@
 </div>
 
 <script>
-// Initialize default reaction counts
-let likeCount = 0;
-let loveCount = 0;
-let wowCount = 0;
-let comments = [];
-
-// Function to load the saved reactions and comments from localStorage
-function loadReactionsAndComments() {
-  const savedReactions = JSON.parse(localStorage.getItem('reactions'));
-  const savedComments = JSON.parse(localStorage.getItem('comments'));
-
-  if (savedReactions) {
-    likeCount = savedReactions.like || 0;
-    loveCount = savedReactions.love || 0;
-    wowCount = savedReactions.wow || 0;
-  }
-
-  if (savedComments) {
-    comments = savedComments;
-  }
-
-  // Update the UI with the loaded data
-  document.getElementById('like-count').innerText = likeCount;
-  document.getElementById('love-count').innerText = loveCount;
-  document.getElementById('wow-count').innerText = wowCount;
-  displayComments();
-}
-
-// Function to handle reactions (like, love, wow)
-function reactToProduct(reactionType) {
-  if (reactionType === 'like') {
-    likeCount++;
-    document.getElementById('like-count').innerText = likeCount;
-  } else if (reactionType === 'love') {
-    loveCount++;
-    document.getElementById('love-count').innerText = loveCount;
-  } else if (reactionType === 'wow') {
-    wowCount++;
-    document.getElementById('wow-count').innerText = wowCount;
-  }
-
-  // Save reactions in localStorage
-  saveReactions();
-}
-
-// Function to save reactions in localStorage
-function saveReactions() {
-  const reactions = {
-    like: likeCount,
-    love: loveCount,
-    wow: wowCount,
+  // Firebase Config (replace with your own Firebase project config)
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+    databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_PROJECT_ID.appspot.com",
+    messagingSenderId: "YOUR_SENDER_ID",
+    appId: "YOUR_APP_ID"
   };
-  localStorage.setItem('reactions', JSON.stringify(reactions));
-}
 
-// Function to handle comment submission
-function submitComment() {
-  const commentText = document.getElementById('comment-box').value.trim();
-  if (!commentText) return;  // Don't submit empty comments
+  // Initialize Firebase
+  const app = firebase.initializeApp(firebaseConfig);
+  const database = firebase.database();
 
-  // Add the new comment to the comments array
-  comments.unshift(commentText); // Adds the comment to the beginning of the array
+  // Initialize default reaction counts
+  let likeCount = 0;
+  let loveCount = 0;
+  let wowCount = 0;
+  let comments = [];
 
-  // Save the comments in localStorage
-  saveComments();
+  // Load Reactions and Comments from Firebase
+  function loadReactionsAndComments() {
+    const reactionsRef = database.ref('reactions');
+    reactionsRef.on('value', (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        likeCount = data.like || 0;
+        loveCount = data.love || 0;
+        wowCount = data.wow || 0;
+      }
+      document.getElementById('like-count').innerText = likeCount;
+      document.getElementById('love-count').innerText = loveCount;
+      document.getElementById('wow-count').innerText = wowCount;
+    });
 
-  // Add the comment to the DOM
-  const commentContainer = document.getElementById('comments-container');
-  const commentItem = document.createElement('div');
-  commentItem.classList.add('comment-item');
-  commentItem.innerHTML = `<p>${commentText}</p>`;
-  commentContainer.prepend(commentItem); // Adds the new comment at the top
+    const commentsRef = database.ref('comments');
+    commentsRef.on('value', (snapshot) => {
+      comments = snapshot.val() || [];
+      displayComments();
+    });
+  }
 
-  // Clear the comment box
-  document.getElementById('comment-box').value = '';
-}
+  // Function to handle reactions (like, love, wow)
+  function reactToProduct(reactionType) {
+    if (reactionType === 'like') {
+      likeCount++;
+      document.getElementById('like-count').innerText = likeCount;
+    } else if (reactionType === 'love') {
+      loveCount++;
+      document.getElementById('love-count').innerText = loveCount;
+    } else if (reactionType === 'wow') {
+      wowCount++;
+      document.getElementById('wow-count').innerText = wowCount;
+    }
 
-// Function to save comments in localStorage
-function saveComments() {
-  localStorage.setItem('comments', JSON.stringify(comments));
-}
+    // Save reactions to Firebase
+    saveReactions();
+  }
 
-// Function to display all saved comments
-function displayComments() {
-  const commentContainer = document.getElementById('comments-container');
-  commentContainer.innerHTML = ''; // Clear existing comments
+  // Function to save reactions to Firebase
+  function saveReactions() {
+    const reactions = {
+      like: likeCount,
+      love: loveCount,
+      wow: wowCount,
+    };
+    database.ref('reactions').set(reactions);
+  }
 
-  comments.forEach(comment => {
+  // Function to handle comment submission
+  function submitComment() {
+    const commentText = document.getElementById('comment-box').value.trim();
+    if (!commentText) return;  // Don't submit empty comments
+
+    // Add the new comment to the comments array
+    comments.unshift(commentText);
+
+    // Save comments to Firebase
+    saveComments();
+
+    // Add the comment to the DOM
+    const commentContainer = document.getElementById('comments-container');
     const commentItem = document.createElement('div');
     commentItem.classList.add('comment-item');
-    commentItem.innerHTML = `<p>${comment}</p>`;
-    commentContainer.appendChild(commentItem);
-  });
-}
+    commentItem.innerHTML = `<p>${commentText}</p>`;
+    commentContainer.prepend(commentItem); // Adds the new comment at the top
 
-// Load saved reactions and comments when the page loads
-window.onload = loadReactionsAndComments;
+    // Clear the comment box
+    document.getElementById('comment-box').value = '';
+  }
+
+  // Function to save comments to Firebase
+  function saveComments() {
+    database.ref('comments').set(comments);
+  }
+
+  // Function to display all saved comments
+  function displayComments() {
+    const commentContainer = document.getElementById('comments-container');
+    commentContainer.innerHTML = ''; // Clear existing comments
+
+    comments.forEach(comment => {
+      const commentItem = document.createElement('div');
+      commentItem.classList.add('comment-item');
+      commentItem.innerHTML = `<p>${comment}</p>`;
+      commentContainer.appendChild(commentItem);
+    });
+  }
+
+  // Load reactions and comments on page load
+  window.onload = loadReactionsAndComments;
 </script>
 
 {% schema %}
