@@ -202,50 +202,83 @@
 </div>
 
 <script>
-  // Firebase Config (replace with your own Firebase project config)
-  const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT_ID.appspot.com",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId: "YOUR_APP_ID"
-  };
+  // Replace with your actual values
+  const shopUrl = 'umais-theme-store.myshopify.com';  // Your Shopify store URL
+  const accessToken = 'c833e8e6e7a0746aadda6b2121aed0d4';  // Your Shopify Admin API Access Token
+  const productId = 1234567890;  // Placeholder product ID for testing
 
-  // Initialize Firebase
-  const app = firebase.initializeApp(firebaseConfig);
-  const database = firebase.database();
-
-  // Initialize default reaction counts
   let likeCount = 0;
   let loveCount = 0;
   let wowCount = 0;
   let comments = [];
 
-  // Load Reactions and Comments from Firebase
-  function loadReactionsAndComments() {
-    const reactionsRef = database.ref('reactions');
-    reactionsRef.on('value', (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
-        likeCount = data.like || 0;
-        loveCount = data.love || 0;
-        wowCount = data.wow || 0;
+  // Fetch reactions and comments from Shopify Metafields on page load
+  async function fetchReactionsAndComments() {
+    try {
+      const reactionsData = await fetchReactionsFromShopify();
+      const commentsData = await fetchCommentsFromShopify();
+
+      if (reactionsData) {
+        likeCount = reactionsData.like || 0;
+        loveCount = reactionsData.love || 0;
+        wowCount = reactionsData.wow || 0;
       }
+
+      if (commentsData) {
+        comments = commentsData;
+      }
+
+      // Update UI with the fetched reactions
       document.getElementById('like-count').innerText = likeCount;
       document.getElementById('love-count').innerText = loveCount;
       document.getElementById('wow-count').innerText = wowCount;
-    });
 
-    const commentsRef = database.ref('comments');
-    commentsRef.on('value', (snapshot) => {
-      comments = snapshot.val() || [];
+      // Display comments
       displayComments();
-    });
+    } catch (error) {
+      console.error('Error fetching data from Shopify:', error);
+    }
   }
 
-  // Function to handle reactions (like, love, wow)
+  // Fetch reactions (like, love, wow) from Shopify Metafields
+  async function fetchReactionsFromShopify() {
+    const url = `https://${shopUrl}/admin/api/2023-01/products/${productId}/metafields.json`;
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Shopify-Access-Token': accessToken,
+      },
+    });
+
+    const data = await response.json();
+    const reactions = {};
+    data.metafields.forEach(metafield => {
+      if (metafield.key === 'like_reactions') reactions.like = parseInt(metafield.value) || 0;
+      if (metafield.key === 'love_reactions') reactions.love = parseInt(metafield.value) || 0;
+      if (metafield.key === 'wow_reactions') reactions.wow = parseInt(metafield.value) || 0;
+    });
+
+    return reactions;
+  }
+
+  // Fetch comments from Shopify Metafields
+  async function fetchCommentsFromShopify() {
+    const url = `https://${shopUrl}/admin/api/2023-01/products/${productId}/metafields.json`;
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Shopify-Access-Token': accessToken,
+      },
+    });
+
+    const data = await response.json();
+    const commentMetafield = data.metafields.find(mf => mf.key === 'comments');
+    return commentMetafield ? JSON.parse(commentMetafield.value) : [];
+  }
+
+  // React to product (increment reaction count)
   function reactToProduct(reactionType) {
     if (reactionType === 'like') {
       likeCount++;
@@ -258,52 +291,105 @@
       document.getElementById('wow-count').innerText = wowCount;
     }
 
-    // Save reactions to Firebase
-    saveReactions();
+    saveReactionsToShopify();
   }
 
-  // Function to save reactions to Firebase
-  function saveReactions() {
-    const reactions = {
-      like: likeCount,
-      love: loveCount,
-      wow: wowCount,
-    };
-    database.ref('reactions').set(reactions);
+  // Save reactions to Shopify Metafields
+  async function saveReactionsToShopify() {
+    const url = `https://${shopUrl}/admin/api/2023-01/products/${productId}/metafields.json`;
+
+    const data = [
+      {
+        metafield: {
+          namespace: 'custom_data',
+          key: 'like_reactions',
+          value: likeCount.toString(),
+          value_type: 'integer',
+        }
+      },
+      {
+        metafield: {
+          namespace: 'custom_data',
+          key: 'love_reactions',
+          value: loveCount.toString(),
+          value_type: 'integer',
+        }
+      },
+      {
+        metafield: {
+          namespace: 'custom_data',
+          key: 'wow_reactions',
+          value: wowCount.toString(),
+          value_type: 'integer',
+        }
+      }
+    ];
+
+    try {
+      await Promise.all(data.map(async (item) => {
+        await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Shopify-Access-Token': accessToken,
+          },
+          body: JSON.stringify(item),
+        });
+      }));
+    } catch (error) {
+      console.error('Error saving reaction:', error);
+    }
   }
 
-  // Function to handle comment submission
-  function submitComment() {
+  // Submit a comment
+  async function submitComment() {
     const commentText = document.getElementById('comment-box').value.trim();
-    if (!commentText) return;  // Don't submit empty comments
+    if (!commentText) return;
 
-    // Add the new comment to the comments array
     comments.unshift(commentText);
+    saveCommentsToShopify();
 
-    // Save comments to Firebase
-    saveComments();
-
-    // Add the comment to the DOM
+    // Display the new comment
     const commentContainer = document.getElementById('comments-container');
     const commentItem = document.createElement('div');
     commentItem.classList.add('comment-item');
     commentItem.innerHTML = `<p>${commentText}</p>`;
-    commentContainer.prepend(commentItem); // Adds the new comment at the top
+    commentContainer.prepend(commentItem);
 
     // Clear the comment box
     document.getElementById('comment-box').value = '';
   }
 
-  // Function to save comments to Firebase
-  function saveComments() {
-    database.ref('comments').set(comments);
+  // Save comments to Shopify Metafields
+  async function saveCommentsToShopify() {
+    const url = `https://${shopUrl}/admin/api/2023-01/products/${productId}/metafields.json`;
+    const data = {
+      metafield: {
+        namespace: 'custom_data',
+        key: 'comments',
+        value: JSON.stringify(comments),
+        value_type: 'string',
+      },
+    };
+
+    try {
+      await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Shopify-Access-Token': accessToken,
+        },
+        body: JSON.stringify(data),
+      });
+    } catch (error)      {
+      console.error('Error saving comment:', error);
+    }
   }
 
-  // Function to display all saved comments
+  // Display comments
   function displayComments() {
     const commentContainer = document.getElementById('comments-container');
-    commentContainer.innerHTML = ''; // Clear existing comments
-
+    commentContainer.innerHTML = '';
     comments.forEach(comment => {
       const commentItem = document.createElement('div');
       commentItem.classList.add('comment-item');
@@ -312,8 +398,8 @@
     });
   }
 
-  // Load reactions and comments on page load
-  window.onload = loadReactionsAndComments;
+  // Fetch reactions and comments on page load
+  window.onload = fetchReactionsAndComments;
 </script>
 
 {% schema %}
