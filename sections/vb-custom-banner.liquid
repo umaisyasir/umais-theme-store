@@ -1,382 +1,302 @@
 {% stylesheet %}
-/* General Styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Arial', sans-serif;
+.banner-slider-container {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
 }
 
-.social-interactions {
+.swiper-container {
+  width: 100%;
+  height: 75vh;
+}
+
+.swiper-slide {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 20px;
-  border-radius: 10px;
-  background-color: #f4f7fb;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-}
-
-.interaction {
-  display: flex;
-  align-items: center;
-  margin: 15px 0;
-}
-
-.count {
-  font-size: 18px;
-  font-weight: bold;
-  color: #555;
-  margin-right: 15px;
-}
-
-.social-btn {
-  background-color: #fff;
-  border: 2px solid #e0e0e0;
-  border-radius: 50px;
-  padding: 12px 24px;
-  font-size: 16px;
-  font-weight: bold;
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
   justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  align-items: center;
+  position: relative;
 }
 
-.social-btn:hover {
-  background-color: #f4f4f4;
-  border-color: #aaa;
-}
-
-.social-btn .icon {
-  margin-right: 10px;
-  font-size: 20px;
-}
-
-.like-btn {
-  color: #007bff;
-}
-
-.share-btn {
-  color: #28a745;
-}
-
-.submit-btn {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 50px;
-  font-weight: bold;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.submit-btn:hover {
-  background-color: #0056b3;
-}
-
-.comment-box {
+.banner-slide {
   width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  border: 2px solid #e0e0e0;
-  border-radius: 10px;
-  font-size: 16px;
-  resize: none;
-  transition: border 0.3s ease;
+  height: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
-.comment-box:focus {
-  border-color: #007bff;
-  outline: none;
-}
-
-.comment-section {
+.banner-slide img {
   width: 100%;
-  max-width: 500px;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  filter: brightness(0.5);
+}
+
+.banner-content {
   text-align: center;
+  color: #fff;
+  position: relative;
+  z-index: 2;
 }
 
-.comments-container {
-  margin-top: 20px;
-  max-height: 300px;
-  overflow-y: auto;
-  border-top: 1px solid #e0e0e0;
-  padding-top: 10px;
-}
-
-.comment-item {
-  margin-bottom: 15px;
-  padding: 10px;
-  background-color: #f9f9f9;
-  border-radius: 5px;
-  border: 1px solid #e0e0e0;
-}
-
-.comment-item p {
-  font-size: 16px;
-  color: #555;
-}
-
-.reaction-buttons {
-  display: flex;
-  justify-content: center;
+.banner-content h2 {
+  font-size: 48px;
   margin-bottom: 20px;
-}
-
-.reaction-btn {
-  background-color: #fff;
-  border: 2px solid #e0e0e0;
-  border-radius: 50px;
-  padding: 12px 24px;
-  font-size: 16px;
   font-weight: bold;
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 10px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.reaction-btn:hover {
-  background-color: #f4f4f4;
-  border-color: #aaa;
-}
-
-.reaction-btn .icon {
-  margin-right: 10px;
+.banner-content p {
   font-size: 20px;
+  margin-bottom: 30px;
 }
 
-#like-btn {
-  color: #007bff;
+.banner-btn {
+  display: inline-block;
+  padding: 12px 25px;
+  background-color: #fff;
+  color: #000;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 5px;
 }
 
-#love-btn {
-  color: #e1005c;
+.swiper-pagination {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
 }
 
-#wow-btn {
-  color: #ffac00;
+.swiper-pagination-bullet {
+  background-color: #fff;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin: 0 4px;
+  opacity: 0.7;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #000;
+  opacity: 1;
+}
+
+  span.swiper-pagination-bullet {
+    background: white;
+    height: 15px;
+    width: 15px;
+}
+
+@media (max-width: 768px) {
+  .banner-content h2 {
+    font-size: 32px;
+  }
+  .banner-content p {
+    font-size: 16px;
+  }
+  .swiper-container {
+    height: 60vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .banner-content h2 {
+    font-size: 24px !important;
+  }
+  .banner-content p {
+    font-size: 14px!important;
+  }
+  .swiper-container {
+    height: 75vh;
+  }
+  .banner-content {
+    padding: 12px;
+  }
 }
 {% endstylesheet %}
 
-<div class="social-interactions">
-  <!-- Reaction Buttons -->
-  <div class="reaction-buttons">
-    <button class="reaction-btn" id="like-btn" onclick="reactToProduct('like')">
-      <span class="icon"><i class="fas fa-thumbs-up"></i></span> Like <span id="like-count">0</span>
-    </button>
-
-    <button class="reaction-btn" id="love-btn" onclick="reactToProduct('love')">
-      <span class="icon"><i class="fas fa-heart"></i></span> Love <span id="love-count">0</span>
-    </button>
-
-    <button class="reaction-btn" id="wow-btn" onclick="reactToProduct('wow')">
-      <span class="icon"><i class="fas fa-surprise"></i></span> Wow <span id="wow-count">0</span>
-    </button>
-  </div>
-
-  <!-- Comment Section -->
-  <div class="comment-section">
-    <textarea class="comment-box" id="comment-box" placeholder="Add a comment..."></textarea>
-    <button class="submit-btn" id="submit-comment" onclick="submitComment()">
-      Submit Comment
-    </button>
-
-    <!-- Container to display comments -->
-    <div class="comments-container" id="comments-container">
-      <!-- Dynamically added comments will appear here -->
+<div class="banner-slider-container">
+  <div class="swiper mySwiper swiper-container">
+    <div class="swiper-wrapper">
+      {% for block in section.blocks %}
+        <div class="swiper-slide">
+          <div class="banner-slide">
+            <!-- Image tag for the slide -->
+            <img src="{{ block.settings.image | img_url: '1688x650' }}" alt="Slide Image" style="object-position: {{ block.settings.bg_position }};">
+            
+            <div class="banner-content" style="text-align: {{ block.settings.text_align }};">
+              <h2 style="font-size: {{ block.settings.heading_size }}px; color: {{ block.settings.text_color }}; margin: 0; ">{{ block.settings.heading }}</h2>
+              <p style="font-size: {{ block.settings.subheading_size }}px; color: {{ block.settings.text_color }};">{{ block.settings.subheading }}</p>
+              <a href="{{ block.settings.button_link }}" class="banner-btn" style="background-color: {{ block.settings.button_color }}; color: {{ block.settings.button_text_color }};">{{ block.settings.button_text }}</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
     </div>
+    <!-- Pagination dots -->
+    <div class="swiper-pagination"></div>
   </div>
 </div>
 
 <script>
-  // Replace with your actual values
-  const shopUrl = 'umais-theme-store.myshopify.com';  // Your Shopify store URL
-  const accessToken = 'c833e8e6e7a0746aadda6b2121aed0d4';  // Your Shopify Admin API Access Token
-  const productId = 8726919577838;  // Placeholder product ID for testing
+  document.addEventListener('DOMContentLoaded', function() {
+    // Ensure the template variables are outputting the correct values
+    var autoplayDelay = {{ section.settings.autoplay_delay | default: 5000 }}; 
+    var disableOnInteraction = {{ section.settings.disable_on_interaction | default: 'false' }}; // default false, use string 'false'
 
-  let likeCount = 0;
-  let loveCount = 0;
-  let wowCount = 0;
-  let comments = [];
-
-  // Fetch reactions and comments from Shopify Metafields on page load
-  async function fetchReactionsAndComments() {
-    try {
-      const reactionsData = await fetchReactionsFromShopify();
-      const commentsData = await fetchCommentsFromShopify();
-
-      if (reactionsData) {
-        likeCount = reactionsData.like || 0;
-        loveCount = reactionsData.love || 0;
-        wowCount = reactionsData.wow || 0;
-      }
-
-      if (commentsData) {
-        comments = commentsData;
-      }
-
-      // Update UI with the fetched reactions
-      document.getElementById('like-count').innerText = likeCount;
-      document.getElementById('love-count').innerText = loveCount;
-      document.getElementById('wow-count').innerText = wowCount;
-
-      // Display comments
-      displayComments();
-    } catch (error) {
-      console.error('Error fetching data from Shopify:', error);
-    }
-  }
-
-  // Fetch reactions (like, love, wow) from Shopify Metafields
-  async function fetchReactionsFromShopify() {
-    const url = `https://${shopUrl}/admin/api/2023-01/products/${productId}/metafields.json`;
-    const response = await fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Shopify-Access-Token': accessToken,
-      },
-    });
-
-    const data = await response.json();
-    const reactions = {};
-    data.metafields.forEach(metafield => {
-      if (metafield.key === 'like_reactions') reactions.like = parseInt(metafield.value) || 0;
-      if (metafield.key === 'love_reactions') reactions.love = parseInt(metafield.value) || 0;
-      if (metafield.key === 'wow_reactions') reactions.wow = parseInt(metafield.value) || 0;
-    });
-
-    return reactions;
-  }
-
-  // Fetch comments from Shopify Metafields
-  async function fetchCommentsFromShopify() {
-    const url = `https://${shopUrl}/admin/api/2023-01/products/${productId}/metafields.json`;
-    const response = await fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Shopify-Access-Token': accessToken,
-      },
-    });
-
-    const data = await response.json();
-    const commentMetafield = data.metafields.find(mf => mf.key === 'comments');
-    return commentMetafield ? JSON.parse(commentMetafield.value) : [];
-  }
-
-  // React to product (increment reaction count)
-  function reactToProduct(reactionType) {
-    if (reactionType === 'like') {
-      likeCount++;
-      document.getElementById('like-count').innerText = likeCount;
-    } else if (reactionType === 'love') {
-      loveCount++;
-      document.getElementById('love-count').innerText = loveCount;
-    } else if (reactionType === 'wow') {
-      wowCount++;
-      document.getElementById('wow-count').innerText = wowCount;
+    // Ensure that the swiper-container element exists
+    var swiperContainer = document.querySelector('.swiper-container');
+    if (!swiperContainer) {
+      console.error('Swiper container not found!');
+      return;
     }
 
-    saveReactionsToShopify();
-  }
-
-  // Save reactions to Shopify Metafields
-  async function saveReactionsToShopify() {
-    const url = `https://${shopUrl}/admin/api/2023-01/products/${productId}/metafields.json`;
-
-    const data = {
-      metafields: [
-        { namespace: 'social', key: 'like_reactions', value: likeCount.toString(), value_type: 'integer' },
-        { namespace: 'social', key: 'love_reactions', value: loveCount.toString(), value_type: 'integer' },
-        { namespace: 'social', key: 'wow_reactions', value: wowCount.toString(), value_type: 'integer' },
-      ],
-    };
-
-    await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Shopify-Access-Token': accessToken,
+    // Initialize Swiper
+    var swiper = new Swiper('.swiper-container', {
+      effect: 'fade',
+      loop: true,
+      autoplay: {
+        delay: autoplayDelay, // Delay value should be passed here
+        disableOnInteraction: disableOnInteraction === 'true' ? true : false, // Convert string 'false'/'true' to boolean
       },
-      body: JSON.stringify(data),
-    });
-  }
-
-  // Submit comment
-  function submitComment() {
-    const commentBox = document.getElementById('comment-box');
-    const commentText = commentBox.value.trim();
-    if (commentText) {
-      comments.push(commentText);
-      commentBox.value = '';  // Clear the comment box
-      saveCommentsToShopify();
-      displayComments();
-    }
-  }
-
-  // Save comments to Shopify Metafields
-  async function saveCommentsToShopify() {
-    const url = `https://${shopUrl}/admin/api/2023-01/products/${productId}/metafields.json`;
-
-    const data = {
-      metafields: [
-        {
-          namespace: 'social',
-          key: 'comments',
-          value: JSON.stringify(comments),
-          value_type: 'json_string',
-        },
-      ],
-    };
-
-    await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Shopify-Access-Token': accessToken,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true, // Make the dots clickable
       },
-      body: JSON.stringify(data),
+      fadeEffect: {
+        crossFade: true,
+      },
     });
-  }
 
-  // Display comments in the UI
-  function displayComments() {
-    const commentsContainer = document.getElementById('comments-container');
-    commentsContainer.innerHTML = '';
-
-    comments.forEach(comment => {
-      const commentItem = document.createElement('div');
-      commentItem.classList.add('comment-item');
-      commentItem.innerHTML = `<p>${comment}</p>`;
-      commentsContainer.appendChild(commentItem);
-    });
-  }
-
-  // Call the function to fetch initial reactions and comments on page load
-  fetchReactionsAndComments();
+    // Debugging message to confirm if Swiper initialized
+    console.log('Swiper initialized');
+  });
 </script>
+
 
 {% schema %}
 {
   "name": "VB - Banner Slider",
-  "settings": [],
+  "settings": [
+    {
+      "type": "range",
+      "id": "autoplay_delay",
+      "label": "Autoplay Delay (ms)",
+      "min": 1000,
+      "max": 5000,
+      "step": 500,
+      "default": 5000
+    },
+    {
+      "type": "checkbox",
+      "id": "disable_on_interaction",
+      "label": "Disable autoplay on interaction",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "banner_slide",
+      "name": "Banner Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Background Image"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading Text"
+        },
+        {
+          "type": "text",
+          "id": "subheading",
+          "label": "Subheading Text"
+        },
+        {
+          "type": "range",
+          "id": "heading_size",
+          "label": "Heading Font Size (px)",
+          "min": 16,
+          "max": 72,
+          "default": 48
+        },
+        {
+          "type": "range",
+          "id": "subheading_size",
+          "label": "Subheading Font Size (px)",
+          "min": 12,
+          "max": 36,
+          "default": 20
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "select",
+          "id": "text_align",
+          "label": "Text Alignment",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "center", "label": "Center" },
+            { "value": "right", "label": "Right" }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text"
+        },
+        {
+          "type": "color",
+          "id": "button_color",
+          "label": "Button Background Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "button_text_color",
+          "label": "Button Text Color",
+          "default": "#000000"
+        },
+        {
+          "type": "select",
+          "id": "bg_position",
+          "label": "Image Position",
+          "options": [
+            { "value": "center", "label": "Center" },
+            { "value": "top", "label": "Top" },
+            { "value": "bottom", "label": "Bottom" },
+            { "value": "left", "label": "Left" },
+            { "value": "right", "label": "Right" }
+          ],
+          "default": "center"
+        }
+      ]
+    }
+  ],
   "presets": [
     {
-      "name": "VB - Banner Slider"
+      "name": "VB - Banner Slider",
+      "category": "Custom"
     }
   ]
 }
