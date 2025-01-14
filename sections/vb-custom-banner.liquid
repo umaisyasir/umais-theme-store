@@ -1,301 +1,290 @@
 {% stylesheet %}
-.banner-slider-container {
-  width: 100%;
-  position: relative;
-  overflow: hidden;
+/* General Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
 }
 
-.swiper-container {
-  width: 100%;
-  height: 75vh;
-}
-
-.swiper-slide {
+.social-interactions {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  position: relative;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #f4f7fb;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
 }
 
-.banner-slide {
-  width: 100%;
-  height: 100%;
-  position: relative;
+.interaction {
   display: flex;
-  justify-content: center;
   align-items: center;
-  overflow: hidden;
+  margin: 15px 0;
 }
 
-.banner-slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  filter: brightness(0.5);
-}
-
-.banner-content {
-  text-align: center;
-  color: #fff;
-  position: relative;
-  z-index: 2;
-}
-
-.banner-content h2 {
-  font-size: 48px;
-  margin-bottom: 20px;
+.count {
+  font-size: 18px;
   font-weight: bold;
+  color: #555;
+  margin-right: 15px;
 }
 
-.banner-content p {
-  font-size: 20px;
-  margin-bottom: 30px;
-}
-
-.banner-btn {
-  display: inline-block;
-  padding: 12px 25px;
+.social-btn {
   background-color: #fff;
-  color: #000;
+  border: 2px solid #e0e0e0;
+  border-radius: 50px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
   text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.social-btn:hover {
+  background-color: #f4f4f4;
+  border-color: #aaa;
+}
+
+.social-btn .icon {
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+.like-btn {
+  color: #007bff;
+}
+
+.share-btn {
+  color: #28a745;
+}
+
+.submit-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 50px;
   font-weight: bold;
-  text-decoration: none;
-  border-radius: 5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.swiper-pagination {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 3;
+.submit-btn:hover {
+  background-color: #0056b3;
 }
 
-.swiper-pagination-bullet {
-  background-color: #fff;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  margin: 0 4px;
-  opacity: 0.7;
+.comment-box {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 16px;
+  resize: none;
+  transition: border 0.3s ease;
 }
 
-.swiper-pagination-bullet-active {
-  background-color: #000;
-  opacity: 1;
+.comment-box:focus {
+  border-color: #007bff;
+  outline: none;
 }
 
-span.swiper-pagination-bullet {
-  background: white;
-  height: 15px;
-  width: 15px;
-}
-
-@media (max-width: 768px) {
-  .banner-content h2 {
-    font-size: 32px;
-  }
-  .banner-content p {
-    font-size: 16px;
-  }
-  .swiper-container {
-    height: 60vh;
-  }
-}
-
-@media (max-width: 480px) {
-  .banner-content h2 {
-    font-size: 24px !important;
-  }
-  .banner-content p {
-    font-size: 14px!important;
-  }
-  .swiper-container {
-    height: 75vh;
-  }
-  .banner-content {
-    padding: 12px;
-  }
+.comment-section {
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
 }
 {% endstylesheet %}
 
-<div class="banner-slider-container">
-  <div class="swiper mySwiper swiper-container">
-    <div class="swiper-wrapper">
-      {% for block in section.blocks %}
-        <div class="swiper-slide">
-          <div class="banner-slide">
-            <!-- Image tag for the slide -->
-            <img src="{{ block.settings.image | img_url: '1688x650' }}" alt="Slide Image" style="object-position: {{ block.settings.bg_position }};">
-            
-            <div class="banner-content" style="text-align: {{ block.settings.text_align }};">
-              <h2 style="font-size: {{ block.settings.heading_size }}px; color: {{ block.settings.text_color }}; margin: 0; ">{{ block.settings.heading }}</h2>
-              <p style="font-size: {{ block.settings.subheading_size }}px; color: {{ block.settings.text_color }};">{{ block.settings.subheading }}</p>
-              <a href="{{ block.settings.button_link }}" class="banner-btn" style="background-color: {{ block.settings.button_color }}; color: {{ block.settings.button_text_color }};">{{ block.settings.button_text }}</a>
-            </div>
-          </div>
-        </div>
-      {% endfor %}
-    </div>
-    <!-- Pagination dots -->
-    <div class="swiper-pagination"></div>
+<div class="social-interactions">
+  <!-- Like Button -->
+  <div class="interaction">
+    <span class="count" id="like-count">234</span> <!-- Initial like count -->
+    <button class="social-btn like-btn" id="like-button" onclick="likeProduct(productId)">
+      <span class="icon"><i class="fas fa-thumbs-up"></i></span>
+      <span class="text">Like</span>
+    </button>
+  </div>
+
+  <!-- Share Button -->
+  <div class="interaction">
+    <span class="count" id="share-count">56</span> <!-- Initial share count -->
+    <button class="social-btn share-btn" id="share-button" onclick="shareProduct(productId)">
+      <span class="icon"><i class="fas fa-share-alt"></i></span>
+      <span class="text">Share</span>
+    </button>
+  </div>
+
+  <!-- Comment Section -->
+  <div class="comment-section">
+    <textarea class="comment-box" id="comment-box" placeholder="Add a comment..."></textarea>
+    <button class="submit-btn" id="submit-comment" onclick="submitComment(productId, document.getElementById('comment-box').value)">
+      Submit Comment
+    </button>
   </div>
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Ensure the template variables are outputting the correct values
-    var autoplayDelay = {{ section.settings.autoplay_delay | default: 5000 }}; 
-    var disableOnInteraction = {{ section.settings.disable_on_interaction | default: false }}; // Corrected to boolean
+// Placeholder product ID for testing
+const productId = 1234567890;
 
-    // Ensure that the swiper-container element exists
-    var swiperContainer = document.querySelector('.swiper-container');
-    if (!swiperContainer) {
-      console.error('Swiper container not found!');
-      return;
-    }
+// Initial counts (these could come from Shopify API on page load)
+let likeCount = 234;
+let shareCount = 56;
+let commentCount = 0;
 
-    // Initialize Swiper
-    var swiper = new Swiper('.swiper-container', {
-      effect: 'fade',
-      loop: true,
-      autoplay: {
-        delay: autoplayDelay, // Delay value passed here
-        disableOnInteraction: disableOnInteraction, // Use boolean directly
+// Function to update the like count on the frontend and backend
+function likeProduct(productId) {
+  // Increment like count
+  likeCount++;
+
+  // Update the count display
+  document.getElementById('like-count').innerText = likeCount;
+
+  // Send the like count to the backend (Shopify API or your own API)
+  updateLikeCountBackend(productId, likeCount);
+}
+
+// Function to update the share count on the frontend and backend
+function shareProduct(productId) {
+  // Increment share count
+  shareCount++;
+
+  // Update the count display
+  document.getElementById('share-count').innerText = shareCount;
+
+  // Send the share count to the backend (Shopify API or your own API)
+  updateShareCountBackend(productId, shareCount);
+}
+
+// Function to update like count in the backend (Shopify Metafields API)
+async function updateLikeCountBackend(productId, count) {
+  const token = 'your_shopify_admin_api_access_token'; // Your Shopify Admin API access token
+  const shopUrl = 'your_shop.myshopify.com'; // Your Shopify store URL
+  const metafieldNamespace = 'custom_data'; // Metafield namespace
+  const metafieldKey = 'likes'; // Metafield key for likes
+
+  const url = `https://${shopUrl}/admin/api/2023-01/products/${productId}/metafields.json`;
+
+  const data = {
+    metafield: {
+      namespace: metafieldNamespace,
+      key: metafieldKey,
+      value: count.toString(),
+      value_type: 'integer',
+    },
+  };
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Shopify-Access-Token': token,
       },
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true, // Make the dots clickable
-      },
-      fadeEffect: {
-        crossFade: true,
-      },
+      body: JSON.stringify(data),
     });
+    const result = await response.json();
+    console.log('Like count updated:', result);
+  } catch (error) {
+    console.error('Error updating like count:', error);
+  }
+}
 
-    // Debugging message to confirm if Swiper initialized
-    console.log('Swiper initialized');
-  });
+// Function to update share count in the backend (Shopify Metafields API)
+async function updateShareCountBackend(productId, count) {
+  const token = 'your_shopify_admin_api_access_token'; // Your Shopify Admin API access token
+  const shopUrl = 'your_shop.myshopify.com'; // Your Shopify store URL
+  const metafieldNamespace = 'custom_data'; // Metafield namespace
+  const metafieldKey = 'shares'; // Metafield key for shares
+
+  const url = `https://${shopUrl}/admin/api/2023-01/products/${productId}/metafields.json`;
+
+  const data = {
+    metafield: {
+      namespace: metafieldNamespace,
+      key: metafieldKey,
+      value: count.toString(),
+      value_type: 'integer',
+    },
+  };
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Shopify-Access-Token': token,
+      },
+      body: JSON.stringify(data),
+    });
+    const result = await response.json();
+    console.log('Share count updated:', result);
+  } catch (error) {
+    console.error('Error updating share count:', error);
+  }
+}
+
+// Function to handle comment submission
+async function submitComment(productId, commentText) {
+  // Increment comment count (if desired)
+  commentCount++;
+
+  // Send the comment data to the backend (Shopify Metafields or your own API)
+  saveCommentBackend(productId, commentText);
+}
+
+// Function to save the comment to the backend (Shopify API or custom)
+async function saveCommentBackend(productId, commentText) {
+  const token = 'your_shopify_admin_api_access_token';
+  const shopUrl = 'your_shop.myshopify.com';
+  const metafieldNamespace = 'custom_data';
+  const metafieldKey = 'comments';
+
+  const url = `https://${shopUrl}/admin/api/2023-01/products/${productId}/metafields.json`;
+
+  const data = {
+    metafield: {
+      namespace: metafieldNamespace,
+      key: metafieldKey,
+      value: commentText,
+      value_type: 'string',
+    },
+  };
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Shopify-Access-Token': token,
+      },
+      body: JSON.stringify(data),
+    });
+    const result = await response.json();
+    console.log('Comment saved:', result);
+  } catch (error) {
+    console.error('Error saving comment:', error);
+  }
+}
 </script>
 
 {% schema %}
 {
   "name": "VB - Banner Slider",
-  "settings": [
-    {
-      "type": "range",
-      "id": "autoplay_delay",
-      "label": "Autoplay Delay (ms)",
-      "min": 1000,
-      "max": 5000,
-      "step": 500,
-      "default": 5000
-    },
-    {
-      "type": "checkbox",
-      "id": "disable_on_interaction",
-      "label": "Disable autoplay on interaction",
-      "default": true
-    }
-  ],
-  "blocks": [
-    {
-      "type": "banner_slide",
-      "name": "Banner Slide",
-      "settings": [
-        {
-          "type": "image_picker",
-          "id": "image",
-          "label": "Background Image"
-        },
-        {
-          "type": "text",
-          "id": "heading",
-          "label": "Heading Text"
-        },
-        {
-          "type": "text",
-          "id": "subheading",
-          "label": "Subheading Text"
-        },
-        {
-          "type": "range",
-          "id": "heading_size",
-          "label": "Heading Font Size (px)",
-          "min": 16,
-          "max": 72,
-          "default": 48
-        },
-        {
-          "type": "range",
-          "id": "subheading_size",
-          "label": "Subheading Font Size (px)",
-          "min": 12,
-          "max": 36,
-          "default": 20
-        },
-        {
-          "type": "color",
-          "id": "text_color",
-          "label": "Text Color",
-          "default": "#ffffff"
-        },
-        {
-          "type": "select",
-          "id": "text_align",
-          "label": "Text Alignment",
-          "options": [
-            { "value": "left", "label": "Left" },
-            { "value": "center", "label": "Center" },
-            { "value": "right", "label": "Right" }
-          ],
-          "default": "center"
-        },
-        {
-          "type": "url",
-          "id": "button_link",
-          "label": "Button Link"
-        },
-        {
-          "type": "text",
-          "id": "button_text",
-          "label": "Button Text"
-        },
-        {
-          "type": "color",
-          "id": "button_color",
-          "label": "Button Background Color",
-          "default": "#ffffff"
-        },
-        {
-          "type": "color",
-          "id": "button_text_color",
-          "label": "Button Text Color",
-          "default": "#000000"
-        },
-        {
-          "type": "select",
-          "id": "bg_position",
-          "label": "Image Position",
-          "options": [
-            { "value": "center", "label": "Center" },
-            { "value": "top", "label": "Top" },
-            { "value": "bottom", "label": "Bottom" },
-            { "value": "left", "label": "Left" },
-            { "value": "right", "label": "Right" }
-          ],
-          "default": "center"
-        }
-      ]
-    }
-  ],
+  "settings": [],
   "presets": [
     {
-      "name": "VB - Banner Slider",
-      "category": "Custom"
+      "name": "VB - Banner Slider"
     }
   ]
 }
