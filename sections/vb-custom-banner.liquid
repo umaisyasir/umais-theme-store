@@ -103,6 +103,27 @@
   max-width: 500px;
   text-align: center;
 }
+
+.comments-container {
+  margin-top: 20px;
+  max-height: 300px;
+  overflow-y: auto;
+  border-top: 1px solid #e0e0e0;
+  padding-top: 10px;
+}
+
+.comment-item {
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  border: 1px solid #e0e0e0;
+}
+
+.comment-item p {
+  font-size: 16px;
+  color: #555;
+}
 {% endstylesheet %}
 
 <div class="social-interactions">
@@ -130,6 +151,11 @@
     <button class="submit-btn" id="submit-comment" onclick="submitComment(productId, document.getElementById('comment-box').value)">
       Submit Comment
     </button>
+
+    <!-- Container to display comments -->
+    <div class="comments-container" id="comments-container">
+      <!-- Dynamically added comments will appear here -->
+    </div>
   </div>
 </div>
 
@@ -166,89 +192,30 @@ function shareProduct(productId) {
   updateShareCountBackend(productId, shareCount);
 }
 
-// Function to update like count in the backend (Shopify Metafields API)
-async function updateLikeCountBackend(productId, count) {
-  const token = 'your_shopify_admin_api_access_token'; // Your Shopify Admin API access token
-  const shopUrl = 'your_shop.myshopify.com'; // Your Shopify store URL
-  const metafieldNamespace = 'custom_data'; // Metafield namespace
-  const metafieldKey = 'likes'; // Metafield key for likes
-
-  const url = `https://${shopUrl}/admin/api/2023-01/products/${productId}/metafields.json`;
-
-  const data = {
-    metafield: {
-      namespace: metafieldNamespace,
-      key: metafieldKey,
-      value: count.toString(),
-      value_type: 'integer',
-    },
-  };
-
-  try {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Shopify-Access-Token': token,
-      },
-      body: JSON.stringify(data),
-    });
-    const result = await response.json();
-    console.log('Like count updated:', result);
-  } catch (error) {
-    console.error('Error updating like count:', error);
-  }
-}
-
-// Function to update share count in the backend (Shopify Metafields API)
-async function updateShareCountBackend(productId, count) {
-  const token = 'your_shopify_admin_api_access_token'; // Your Shopify Admin API access token
-  const shopUrl = 'your_shop.myshopify.com'; // Your Shopify store URL
-  const metafieldNamespace = 'custom_data'; // Metafield namespace
-  const metafieldKey = 'shares'; // Metafield key for shares
-
-  const url = `https://${shopUrl}/admin/api/2023-01/products/${productId}/metafields.json`;
-
-  const data = {
-    metafield: {
-      namespace: metafieldNamespace,
-      key: metafieldKey,
-      value: count.toString(),
-      value_type: 'integer',
-    },
-  };
-
-  try {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Shopify-Access-Token': token,
-      },
-      body: JSON.stringify(data),
-    });
-    const result = await response.json();
-    console.log('Share count updated:', result);
-  } catch (error) {
-    console.error('Error updating share count:', error);
-  }
-}
-
 // Function to handle comment submission
 async function submitComment(productId, commentText) {
-  // Increment comment count (if desired)
-  commentCount++;
+  if (!commentText.trim()) return;  // Do nothing if the comment is empty
+  
+  // Add the comment to the comment container dynamically
+  const commentContainer = document.getElementById('comments-container');
+  const commentItem = document.createElement('div');
+  commentItem.classList.add('comment-item');
+  commentItem.innerHTML = `<p>${commentText}</p>`;
+  commentContainer.prepend(commentItem); // Adds the new comment at the top
 
-  // Send the comment data to the backend (Shopify Metafields or your own API)
-  saveCommentBackend(productId, commentText);
+  // Save the comment to the backend (Shopify or custom API)
+  await saveCommentBackend(productId, commentText);
+
+  // Clear the comment box after submission
+  document.getElementById('comment-box').value = '';
 }
 
-// Function to save the comment to the backend (Shopify API or custom)
+// Function to save the comment to the backend (Shopify Metafields or custom)
 async function saveCommentBackend(productId, commentText) {
-  const token = 'your_shopify_admin_api_access_token';
-  const shopUrl = 'your_shop.myshopify.com';
-  const metafieldNamespace = 'custom_data';
-  const metafieldKey = 'comments';
+  const token = 'your_shopify_admin_api_access_token'; // Shopify API access token
+  const shopUrl = 'your_shop.myshopify.com'; // Your Shopify store URL
+  const metafieldNamespace = 'custom_data'; // Metafield namespace
+  const metafieldKey = 'comments'; // Metafield key for comments
 
   const url = `https://${shopUrl}/admin/api/2023-01/products/${productId}/metafields.json`;
 
