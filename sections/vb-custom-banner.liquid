@@ -202,52 +202,36 @@
 </div>
 
 <script>
-// Placeholder product ID for testing
-const productId = 1234567890;
-
-// Initially, reaction counts (these will be dynamically fetched on page load)
+// Initialize default reaction counts
 let likeCount = 0;
 let loveCount = 0;
 let wowCount = 0;
+let comments = [];
 
-// Fetch reactions from Shopify Metafields on page load
-async function fetchReactions() {
-  const token = 'c833e8e6e7a0746aadda6b2121aed0d4'; // Your Shopify API access token
-  const shopUrl = 'umais-theme-store.myshopify.com'; // Your Shopify store URL
-  const metafieldNamespace = 'custom_data'; // Metafield namespace
-  const reactionTypes = ['like', 'love', 'wow'];
+// Function to load the saved reactions and comments from localStorage
+function loadReactionsAndComments() {
+  const savedReactions = JSON.parse(localStorage.getItem('reactions'));
+  const savedComments = JSON.parse(localStorage.getItem('comments'));
 
-  try {
-    for (let reaction of reactionTypes) {
-      const url = `https://${shopUrl}/admin/api/2023-01/products/${productId}/metafields.json?namespace=${metafieldNamespace}&key=${reaction}_reactions`;
-      const response = await fetch(url, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Shopify-Access-Token': token,
-        },
-      });
-      const result = await response.json();
-      const metafield = result.metafields ? result.metafields[0] : null;
-      if (metafield) {
-        if (reaction === 'like') likeCount = parseInt(metafield.value);
-        if (reaction === 'love') loveCount = parseInt(metafield.value);
-        if (reaction === 'wow') wowCount = parseInt(metafield.value);
-      }
-    }
-
-    // Update UI with the fetched reaction counts
-    document.getElementById('like-count').innerText = likeCount;
-    document.getElementById('love-count').innerText = loveCount;
-    document.getElementById('wow-count').innerText = wowCount;
-
-  } catch (error) {
-    console.error('Error fetching reactions:', error);
+  if (savedReactions) {
+    likeCount = savedReactions.like || 0;
+    loveCount = savedReactions.love || 0;
+    wowCount = savedReactions.wow || 0;
   }
+
+  if (savedComments) {
+    comments = savedComments;
+  }
+
+  // Update the UI with the loaded data
+  document.getElementById('like-count').innerText = likeCount;
+  document.getElementById('love-count').innerText = loveCount;
+  document.getElementById('wow-count').innerText = wowCount;
+  displayComments();
 }
 
 // Function to handle reactions (like, love, wow)
-function reactToProduct(productId, reactionType) {
+function reactToProduct(reactionType) {
   if (reactionType === 'like') {
     likeCount++;
     document.getElementById('like-count').innerText = likeCount;
@@ -259,114 +243,62 @@ function reactToProduct(productId, reactionType) {
     document.getElementById('wow-count').innerText = wowCount;
   }
 
-  // Save the reaction to the backend (Shopify Metafields or custom)
-  saveReactionBackend(productId, reactionType);
+  // Save reactions in localStorage
+  saveReactions();
 }
 
-// Function to save the reaction to the backend (Shopify Metafields or custom)
-async function saveReactionBackend(productId, reactionType) {
-  const token = 'c833e8e6e7a0746aadda6b2121aed0d4'; // Shopify API access token
-  const shopUrl = 'umais-theme-store.myshopify.com'; // Your Shopify store URL
-  const metafieldNamespace = 'custom_data'; // Metafield namespace for reactions
-  const metafieldKey = `${reactionType}_reactions`; // Dynamic key based on reaction type
-
-  const url = `https://${shopUrl}/admin/api/2023-01/products/${productId}/metafields.json`;
-
-  const reactionCount = reactionType === 'like' ? likeCount : (reactionType === 'love' ? loveCount : wowCount);
-
-  const data = {
-    metafield: {
-      namespace: metafieldNamespace,
-      key: metafieldKey,
-      value: reactionCount.toString(),
-      value_type: 'integer',
-    },
+// Function to save reactions in localStorage
+function saveReactions() {
+  const reactions = {
+    like: likeCount,
+    love: loveCount,
+    wow: wowCount,
   };
-
-  try {
-    const response = await fetch(url, {
-      method: 'POST', // We use POST to create a new metafield. Use PUT if updating an existing one.
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Shopify-Access-Token': token,
-      },
-      body: JSON.stringify(data),
-    });
-    const result = await response.json();
-    console.log(`${reactionType} reaction saved:`, result);
-  } catch (error) {
-    console.error('Error saving reaction:', error);
-  }
+  localStorage.setItem('reactions', JSON.stringify(reactions));
 }
 
 // Function to handle comment submission
-async function submitComment(productId, commentText) {
-  if (!commentText.trim()) return;  // Do nothing if the comment is empty
-  
-  // Add the comment to the comment container dynamically
+function submitComment() {
+  const commentText = document.getElementById('comment-box').value.trim();
+  if (!commentText) return;  // Don't submit empty comments
+
+  // Add the new comment to the comments array
+  comments.unshift(commentText); // Adds the comment to the beginning of the array
+
+  // Save the comments in localStorage
+  saveComments();
+
+  // Add the comment to the DOM
   const commentContainer = document.getElementById('comments-container');
   const commentItem = document.createElement('div');
   commentItem.classList.add('comment-item');
   commentItem.innerHTML = `<p>${commentText}</p>`;
   commentContainer.prepend(commentItem); // Adds the new comment at the top
 
-  // Save the comment to the backend (Shopify or custom API)
-  await saveCommentBackend(productId, commentText);
-
-  // Clear the comment box after submission
+  // Clear the comment box
   document.getElementById('comment-box').value = '';
 }
 
-// Function to save the comment to the backend (Shopify Metafields or custom)
-async function saveCommentBackend(productId, commentText) {
-  const token = 'c833e8e6e7a0746aadda6b2121aed0d4'; // Shopify API access token
-  const shopUrl = 'umais-theme-store.myshopify.com'; // Your Shopify store URL
-  const metafieldNamespace = 'custom_data'; // Metafield namespace for comments
-  const metafieldKey = 'comments'; // Key for storing comments
-
-  const url = `https://${shopUrl}/admin/api/2023-01/products/${productId}/metafields.json`;
-
-  // Fetch existing comments, if any, and add the new comment
-  const response = await fetch(url, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Shopify-Access-Token': token,
-    },
-  });
-  const result = await response.json();
-  let existingComments = result.metafields && result.metafields[0] ? JSON.parse(result.metafields[0].value) : [];
-
-  // Append the new comment to the existing comments
-  existingComments.push(commentText);
-
-  const data = {
-    metafield: {
-      namespace: metafieldNamespace,
-      key: metafieldKey,
-      value: JSON.stringify(existingComments), // Save comments as an array (JSON string)
-      value_type: 'string',
-    },
-  };
-
-  try {
-    const response = await fetch(url, {
-      method: 'POST', // Use PUT if updating an existing metafield
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Shopify-Access-Token': token,
-      },
-      body: JSON.stringify(data),
-    });
-    const result = await response.json();
-    console.log('Comment saved:', result);
-  } catch (error) {
-    console.error('Error saving comment:', error);
-  }
+// Function to save comments in localStorage
+function saveComments() {
+  localStorage.setItem('comments', JSON.stringify(comments));
 }
 
-// Call fetchReactions on page load to load initial reaction counts
-window.onload = fetchReactions;
+// Function to display all saved comments
+function displayComments() {
+  const commentContainer = document.getElementById('comments-container');
+  commentContainer.innerHTML = ''; // Clear existing comments
+
+  comments.forEach(comment => {
+    const commentItem = document.createElement('div');
+    commentItem.classList.add('comment-item');
+    commentItem.innerHTML = `<p>${comment}</p>`;
+    commentContainer.appendChild(commentItem);
+  });
+}
+
+// Load saved reactions and comments when the page loads
+window.onload = loadReactionsAndComments;
 </script>
 
 {% schema %}
