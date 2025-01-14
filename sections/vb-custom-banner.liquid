@@ -212,8 +212,8 @@ let wowCount = 0;
 
 // Fetch reactions from Shopify Metafields on page load
 async function fetchReactions() {
-  const token = 'your_shopify_admin_api_access_token'; // Your Shopify API access token
-  const shopUrl = 'your_shop.myshopify.com'; // Your Shopify store URL
+  const token = 'c833e8e6e7a0746aadda6b2121aed0d4'; // Your Shopify API access token
+  const shopUrl = 'umais-theme-store.myshopify.com'; // Your Shopify store URL
   const metafieldNamespace = 'custom_data'; // Metafield namespace
   const reactionTypes = ['like', 'love', 'wow'];
 
@@ -228,7 +228,7 @@ async function fetchReactions() {
         },
       });
       const result = await response.json();
-      const metafield = result.metafields[0];
+      const metafield = result.metafields ? result.metafields[0] : null;
       if (metafield) {
         if (reaction === 'like') likeCount = parseInt(metafield.value);
         if (reaction === 'love') loveCount = parseInt(metafield.value);
@@ -265,25 +265,27 @@ function reactToProduct(productId, reactionType) {
 
 // Function to save the reaction to the backend (Shopify Metafields or custom)
 async function saveReactionBackend(productId, reactionType) {
-  const token = 'your_shopify_admin_api_access_token'; // Shopify API access token
-  const shopUrl = 'your_shop.myshopify.com'; // Your Shopify store URL
+  const token = 'c833e8e6e7a0746aadda6b2121aed0d4'; // Shopify API access token
+  const shopUrl = 'umais-theme-store.myshopify.com'; // Your Shopify store URL
   const metafieldNamespace = 'custom_data'; // Metafield namespace for reactions
   const metafieldKey = `${reactionType}_reactions`; // Dynamic key based on reaction type
 
   const url = `https://${shopUrl}/admin/api/2023-01/products/${productId}/metafields.json`;
 
+  const reactionCount = reactionType === 'like' ? likeCount : (reactionType === 'love' ? loveCount : wowCount);
+
   const data = {
     metafield: {
       namespace: metafieldNamespace,
       key: metafieldKey,
-      value: (reactionType === 'like' ? likeCount : reactionType === 'love' ? loveCount : wowCount).toString(),
+      value: reactionCount.toString(),
       value_type: 'integer',
     },
   };
 
   try {
     const response = await fetch(url, {
-      method: 'POST',
+      method: 'POST', // We use POST to create a new metafield. Use PUT if updating an existing one.
       headers: {
         'Content-Type': 'application/json',
         'X-Shopify-Access-Token': token,
@@ -317,25 +319,39 @@ async function submitComment(productId, commentText) {
 
 // Function to save the comment to the backend (Shopify Metafields or custom)
 async function saveCommentBackend(productId, commentText) {
-  const token = 'your_shopify_admin_api_access_token';
-  const shopUrl = 'your_shop.myshopify.com';
-  const metafieldNamespace = 'custom_data';
-  const metafieldKey = 'comments';
+  const token = 'c833e8e6e7a0746aadda6b2121aed0d4'; // Shopify API access token
+  const shopUrl = 'umais-theme-store.myshopify.com'; // Your Shopify store URL
+  const metafieldNamespace = 'custom_data'; // Metafield namespace for comments
+  const metafieldKey = 'comments'; // Key for storing comments
 
   const url = `https://${shopUrl}/admin/api/2023-01/products/${productId}/metafields.json`;
+
+  // Fetch existing comments, if any, and add the new comment
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Shopify-Access-Token': token,
+    },
+  });
+  const result = await response.json();
+  let existingComments = result.metafields && result.metafields[0] ? JSON.parse(result.metafields[0].value) : [];
+
+  // Append the new comment to the existing comments
+  existingComments.push(commentText);
 
   const data = {
     metafield: {
       namespace: metafieldNamespace,
       key: metafieldKey,
-      value: commentText,
+      value: JSON.stringify(existingComments), // Save comments as an array (JSON string)
       value_type: 'string',
     },
   };
 
   try {
     const response = await fetch(url, {
-      method: 'POST',
+      method: 'POST', // Use PUT if updating an existing metafield
       headers: {
         'Content-Type': 'application/json',
         'X-Shopify-Access-Token': token,
