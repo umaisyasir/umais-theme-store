@@ -124,24 +124,66 @@
   font-size: 16px;
   color: #555;
 }
+
+.reaction-buttons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.reaction-btn {
+  background-color: #fff;
+  border: 2px solid #e0e0e0;
+  border-radius: 50px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.reaction-btn:hover {
+  background-color: #f4f4f4;
+  border-color: #aaa;
+}
+
+.reaction-btn .icon {
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+#like-btn {
+  color: #007bff;
+}
+
+#love-btn {
+  color: #e1005c;
+}
+
+#wow-btn {
+  color: #ffac00;
+}
 {% endstylesheet %}
 
 <div class="social-interactions">
-  <!-- Like Button -->
-  <div class="interaction">
-    <span class="count" id="like-count">234</span> <!-- Initial like count -->
-    <button class="social-btn like-btn" id="like-button" onclick="likeProduct(productId)">
-      <span class="icon"><i class="fas fa-thumbs-up"></i></span>
-      <span class="text">Like</span>
+  <!-- Reaction Buttons -->
+  <div class="reaction-buttons">
+    <button class="reaction-btn" id="like-btn" onclick="reactToProduct(productId, 'like')">
+      <span class="icon"><i class="fas fa-thumbs-up"></i></span> Like <span id="like-count">234</span>
     </button>
-  </div>
 
-  <!-- Share Button -->
-  <div class="interaction">
-    <span class="count" id="share-count">56</span> <!-- Initial share count -->
-    <button class="social-btn share-btn" id="share-button" onclick="shareProduct(productId)">
-      <span class="icon"><i class="fas fa-share-alt"></i></span>
-      <span class="text">Share</span>
+    <button class="reaction-btn" id="love-btn" onclick="reactToProduct(productId, 'love')">
+      <span class="icon"><i class="fas fa-heart"></i></span> Love <span id="love-count">56</span>
+    </button>
+
+    <button class="reaction-btn" id="wow-btn" onclick="reactToProduct(productId, 'wow')">
+      <span class="icon"><i class="fas fa-surprise"></i></span> Wow <span id="wow-count">12</span>
     </button>
   </div>
 
@@ -163,33 +205,60 @@
 // Placeholder product ID for testing
 const productId = 1234567890;
 
-// Initial counts (these could come from Shopify API on page load)
+// Initial reaction counts (these could come from Shopify API or your backend)
 let likeCount = 234;
-let shareCount = 56;
-let commentCount = 0;
+let loveCount = 56;
+let wowCount = 12;
 
-// Function to update the like count on the frontend and backend
-function likeProduct(productId) {
-  // Increment like count
-  likeCount++;
+// Function to handle reactions (like, love, wow)
+function reactToProduct(productId, reactionType) {
+  if (reactionType === 'like') {
+    likeCount++;
+    document.getElementById('like-count').innerText = likeCount;
+  } else if (reactionType === 'love') {
+    loveCount++;
+    document.getElementById('love-count').innerText = loveCount;
+  } else if (reactionType === 'wow') {
+    wowCount++;
+    document.getElementById('wow-count').innerText = wowCount;
+  }
 
-  // Update the count display
-  document.getElementById('like-count').innerText = likeCount;
-
-  // Send the like count to the backend (Shopify API or your own API)
-  updateLikeCountBackend(productId, likeCount);
+  // Save the reaction to the backend
+  saveReactionBackend(productId, reactionType);
 }
 
-// Function to update the share count on the frontend and backend
-function shareProduct(productId) {
-  // Increment share count
-  shareCount++;
+// Function to save the reaction to the backend (Shopify Metafields or custom)
+async function saveReactionBackend(productId, reactionType) {
+  const token = 'your_shopify_admin_api_access_token'; // Your Shopify API access token
+  const shopUrl = 'your_shop.myshopify.com'; // Your Shopify store URL
+  const metafieldNamespace = 'custom_data'; // Metafield namespace for reactions
+  const metafieldKey = `${reactionType}_reactions`; // Dynamic key based on the reaction type (e.g., "like_reactions")
 
-  // Update the count display
-  document.getElementById('share-count').innerText = shareCount;
+  const url = `https://${shopUrl}/admin/api/2023-01/products/${productId}/metafields.json`;
 
-  // Send the share count to the backend (Shopify API or your own API)
-  updateShareCountBackend(productId, shareCount);
+  const data = {
+    metafield: {
+      namespace: metafieldNamespace,
+      key: metafieldKey,
+      value: (reactionType === 'like' ? likeCount : reactionType === 'love' ? loveCount : wowCount).toString(),
+      value_type: 'integer',
+    },
+  };
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Shopify-Access-Token': token,
+      },
+      body: JSON.stringify(data),
+    });
+    const result = await response.json();
+    console.log(`${reactionType} reaction saved:`, result);
+  } catch (error) {
+    console.error('Error saving reaction:', error);
+  }
 }
 
 // Function to handle comment submission
@@ -212,10 +281,10 @@ async function submitComment(productId, commentText) {
 
 // Function to save the comment to the backend (Shopify Metafields or custom)
 async function saveCommentBackend(productId, commentText) {
-  const token = 'your_shopify_admin_api_access_token'; // Shopify API access token
-  const shopUrl = 'your_shop.myshopify.com'; // Your Shopify store URL
-  const metafieldNamespace = 'custom_data'; // Metafield namespace
-  const metafieldKey = 'comments'; // Metafield key for comments
+  const token = 'your_shopify_admin_api_access_token';
+  const shopUrl = 'your_shop.myshopify.com';
+  const metafieldNamespace = 'custom_data';
+  const metafieldKey = 'comments';
 
   const url = `https://${shopUrl}/admin/api/2023-01/products/${productId}/metafields.json`;
 
